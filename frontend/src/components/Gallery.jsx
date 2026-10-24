@@ -130,7 +130,6 @@ const Gallery = () => {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "6px",
             fontSize: "0.74rem",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
@@ -139,7 +138,6 @@ const Gallery = () => {
             marginBottom: "0.8rem",
           }}
         >
-          <Sparkles size={14} color="#C5A059" />
           <span>Atelier Archives & Installations</span>
         </div>
         <h1

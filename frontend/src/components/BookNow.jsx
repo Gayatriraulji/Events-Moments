@@ -400,7 +400,6 @@ const BookNow = () => {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "6px",
                   fontSize: "0.72rem",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
@@ -409,7 +408,6 @@ const BookNow = () => {
                   marginBottom: "8px",
                 }}
               >
-                <Sparkles size={12} color="#C5A059" />
                 <span>Bespoke Scenography Booking</span>
               </div>
 

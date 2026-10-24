@@ -15,7 +15,7 @@ const About = () => {
       bg: "rgba(197, 160, 89, 0.15)",
     },
     {
-      icon: <Sparkles size={24} />,
+      icon: <ShieldCheck size={24} />,
       title: "Intelligent AI Curation",
       desc: "We marry classical floral architecture with mood-based algorithms to discover your signature aesthetic.",
       color: "#8EA990",
@@ -44,7 +44,6 @@ const About = () => {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "6px",
             fontSize: "0.74rem",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
@@ -53,7 +52,6 @@ const About = () => {
             marginBottom: "0.8rem",
           }}
         >
-          <Sparkles size={14} color="#C5A059" />
           <span>The Atelier & Philosophy</span>
         </div>
         <h1

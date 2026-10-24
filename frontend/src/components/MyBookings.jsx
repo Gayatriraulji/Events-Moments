@@ -230,7 +230,6 @@ const MyBookings = () => {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
               fontSize: "0.74rem",
               letterSpacing: "0.14em",
               textTransform: "uppercase",
@@ -239,7 +238,6 @@ const MyBookings = () => {
               marginBottom: "0.8rem",
             }}
           >
-            <Sparkles size={14} color="#C5A059" />
             <span>Private Concierge & Reservations</span>
           </div>
 

@@ -149,7 +149,7 @@ const Register = () => {
               boxShadow: "0 8px 24px rgba(197, 160, 89, 0.2)",
             }}
           >
-            <Sparkles size={26} color="#C5A059" />
+            <UserPlus size={26} color="#C5A059" />
           </div>
 
           <h2

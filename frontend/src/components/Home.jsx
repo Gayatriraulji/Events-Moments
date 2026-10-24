@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
@@ -96,24 +96,31 @@ const Home = () => {
   const [heroCardIndex, setHeroCardIndex] = useState(0);
   const heroCards = [
     {
-      title: "Jessica & Andrew",
-      theme: "Wedding Floral Theme",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1000&q=85",
-      accent: "Handcrafted Bridal Styling",
+      title: "Royal Wedding Celebrations",
+      theme: "Grand Ballroom & Aisle Styling",
+      image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=90",
+      accent: "Luxury Wedding Decor",
     },
     {
-      title: "Luna & Alexander",
-      theme: "Solarium Botanical Ceremony",
-      image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1000&q=85",
-      accent: "Sunlit Tuscan Archways",
+      title: "Grand Banquet & Gala Evenings",
+      theme: "Opulent Lighting & Table Scenography",
+      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=90",
+      accent: "Signature Event Styling",
     },
     {
-      title: "The Ritz Gala",
-      theme: "Grand Ballroom Scenography",
-      image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=85",
-      accent: "Suspended Orchids & Crystal",
+      title: "Romantic Outdoor Ceremonies",
+      theme: "Enchanted Floral Canopy & Stage",
+      image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1200&q=90",
+      accent: "Bespoke Floral Decor",
     },
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroCardIndex((prev) => (prev + 1) % 3);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Featured Work Carousel Slider State
   const [workIndex, setWorkIndex] = useState(0);
@@ -214,7 +221,6 @@ const Home = () => {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "8px",
                 background: "rgba(95, 119, 97, 0.2)",
                 border: "1px solid rgba(197, 160, 89, 0.35)",
                 padding: "6px 16px",
@@ -227,7 +233,6 @@ const Home = () => {
                 marginBottom: "1.8rem",
               }}
             >
-              <Sparkles size={13} color="#C5A059" />
               <span>Couture Botanical Studio & Intelligent Curation</span>
             </div>
 
@@ -251,15 +256,15 @@ const Home = () => {
             <p
               style={{
                 fontSize: "1.08rem",
-                color: "#B4C2B6",
+                color: "#C2D1C4",
                 lineHeight: 1.8,
-                maxWidth: "520px",
+                maxWidth: "540px",
                 marginBottom: "2.6rem",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontWeight: 300,
+                fontWeight: 400,
               }}
             >
-              Where natural botanical craftsmanship meets intelligent floral discovery. Handcrafting poetic atmospheres for weddings, luxury galas, and life’s most meaningful moments.
+              Transform your special moments into unforgettable celebrations. We create breathtaking wedding decor, luxury floral styling, and bespoke event setups tailored to perfection for your cherished occasions.
             </p>
 
             {/* Action Buttons */}
@@ -284,7 +289,6 @@ const Home = () => {
                   color: "#E2C485",
                 }}
               >
-                <Sparkles size={15} color="#C5A059" />
                 <span>TRY AI FLORAL MATCH</span>
               </button>
             </div>
@@ -543,7 +547,6 @@ const Home = () => {
               className="aloriga-pill-btn gold"
               style={{ padding: "12px 28px", fontSize: "0.82rem", letterSpacing: "0.08em" }}
             >
-              <Sparkles size={16} />
               <span>TRY AI FLORAL MATCH</span>
             </button>
             <span style={{ fontSize: "2.4rem", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.3))" }}>✿</span>
@@ -1387,9 +1390,6 @@ const Home = () => {
             <div style={{ textAlign: "center", marginBottom: "2rem" }}>
               <div
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
                   fontSize: "0.72rem",
                   letterSpacing: "0.12em",
                   color: "#DFBF80",
@@ -1398,7 +1398,6 @@ const Home = () => {
                   marginBottom: "6px",
                 }}
               >
-                <Sparkles size={14} color="#C5A059" />
                 <span>Aloriga AI Studio</span>
               </div>
               <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "2.2rem", margin: 0 }}>
@@ -1547,10 +1546,7 @@ const Home = () => {
                     {aiCalculating ? (
                       <span>GENERATING AI BOTANICAL SUITE...</span>
                     ) : (
-                      <>
-                        <Sparkles size={16} />
-                        <span>ANALYZE & GENERATE MATCH</span>
-                      </>
+                      <span>ANALYZE & GENERATE MATCH</span>
                     )}
                   </button>
                 </div>

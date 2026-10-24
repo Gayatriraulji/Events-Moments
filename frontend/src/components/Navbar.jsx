@@ -74,7 +74,6 @@ const Navbar = () => {
     { label: "Services", desktopLabel: "SERVICES", path: "/services", icon: <Briefcase size={15} /> },
     { label: "Categories", desktopLabel: "CATEGORIES", path: "/categories", icon: <Layers size={15} /> },
     { label: "Packages", desktopLabel: "PACKAGES", path: "/packages", icon: <PackageIcon size={15} /> },
-    { label: "Contact", desktopLabel: "CONTACT", path: "/contact", icon: <PhoneCall size={15} /> },
     { label: "Reviews", desktopLabel: "REVIEWS", path: "/reviews", icon: <Star size={15} /> },
   ];
 
@@ -362,6 +361,29 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            <Link
+              to="/contact"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                textDecoration: "none",
+                padding: "11px 14px",
+                borderRadius: "10px",
+                color: "#141E15",
+                fontWeight: 700,
+                background: "linear-gradient(135deg, #DFBF80 0%, #C5A059 100%)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                fontSize: "0.86rem",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                marginTop: "4px",
+              }}
+            >
+              <PhoneCall size={15} color="#141E15" />
+              <span>Book a Consultation</span>
+            </Link>
             <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", margin: "6px 0" }} />
             <Link
               to="/my-bookings"

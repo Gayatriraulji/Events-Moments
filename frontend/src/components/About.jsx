@@ -159,7 +159,7 @@ const About = () => {
           </button>
         </div>
 
-        {/* Luna Sage Portrait Card */}
+        {/* Event Celebration Showcase Card */}
         <div
           style={{
             position: "relative",
@@ -174,8 +174,8 @@ const About = () => {
           onMouseLeave={() => setImgHovered(false)}
         >
           <img
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900&q=85"
-            alt="Luna Sage Creative Director"
+            src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=85"
+            alt="Luxury Event Celebration & Scenography"
             style={{
               width: "100%",
               height: "460px",
@@ -202,10 +202,10 @@ const About = () => {
                 margin: "0 0 4px",
               }}
             >
-              Luna Sage
+              Signature Events & Scenography
             </h3>
             <p style={{ fontSize: "0.84rem", color: "#DFBF80", margin: 0, letterSpacing: "0.06em", textTransform: "uppercase" }}>
-              Creative Director & Lead Botanist
+              Bespoke Weddings & Grand Celebrations
             </p>
           </div>
         </div>

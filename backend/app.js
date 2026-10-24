@@ -12,6 +12,7 @@ import dashboardRouter from "./routes/dashboard.routes.js";
 import settingsRouter from "./routes/settings.routes.js";
 import customerRouter from "./routes/customer.routes.js";
 import paymentRouter from "./routes/payment.routes.js";
+import serviceRouter from "./routes/service.routes.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/v1/dashboard", dashboardRouter);
 app.use("/api/v1/settings", settingsRouter);
 app.use("/api/v1/customer", customerRouter);
 app.use("/api/v1/payment", paymentRouter);
+app.use("/api/v1/services", serviceRouter);
 
 // Global Error Handler Middleware
 app.use((err, req, res, next) => {

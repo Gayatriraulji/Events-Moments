@@ -88,7 +88,6 @@ const Packages = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [selectedTier, setSelectedTier] = useState("basic");
   const [hoveredId, setHoveredId] = useState(null);
 
   useEffect(() => {
@@ -117,8 +116,7 @@ const Packages = () => {
     const price = pkg.price || 0;
     const matchesMin = minPrice === "" || price >= Number(minPrice);
     const matchesMax = maxPrice === "" || price <= Number(maxPrice);
-    const matchesTier = pkg.tier === selectedTier;
-    return matchesSearch && matchesMin && matchesMax && matchesTier;
+    return matchesSearch && matchesMin && matchesMax;
   });
 
   return (
@@ -158,46 +156,7 @@ const Packages = () => {
         </p>
       </div>
 
-      {/* Tier Filter Tabs */}
-      <div
-        style={{
-          display: "flex",
-          gap: "8px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          marginBottom: "2rem",
-        }}
-      >
-        {["basic", "premium", "luxury"].map((tier) => {
-          const cfg = tierConfig[tier];
-          const isActive = selectedTier === tier;
-          return (
-            <button
-              key={tier}
-              onClick={() => setSelectedTier(tier)}
-              style={{
-                padding: "8px 22px",
-                borderRadius: "9999px",
-                border: `1px solid ${isActive ? (cfg?.border || "#C5A059") : "rgba(255,255,255,0.08)"}`,
-                background: isActive ? (cfg?.bg || "rgba(197, 160, 89, 0.25)") : "rgba(255,255,255,0.03)",
-                color: isActive ? (cfg?.color || "#DFBF80") : "#A6B8A8",
-                cursor: "pointer",
-                fontSize: "0.82rem",
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                transition: "all 0.25s ease",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              {cfg && <span>{cfg.icon}</span>}
-              <span>{cfg?.label}</span>
-            </button>
-          );
-        })}
-      </div>
+
 
       {/* Search & Price Filter */}
       <div

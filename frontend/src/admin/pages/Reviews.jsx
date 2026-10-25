@@ -93,10 +93,10 @@ const AdminReviews = () => {
       <div className="admin-main-content animate-fade-in">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
               Review Approvals & Moderation
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               Approve or reject customer review submissions for the public homepage and reviews page.
             </p>
           </div>
@@ -118,7 +118,7 @@ const AdminReviews = () => {
 
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading customer reviews...</p>
           </div>
         ) : (
@@ -144,13 +144,13 @@ const AdminReviews = () => {
                   filteredReviews.map((r) => (
                     <tr key={r._id}>
                       <td>
-                        <div style={{ fontWeight: 700, color: "#0F172A" }}>{r.name}</div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>{r.email}</div>
+                        <div style={{ fontWeight: 700, color: "#bdc0c5" }}>{r.name}</div>
+                        <div style={{ fontSize: "0.75rem", color: "#bdc0c5" }}>{r.email}</div>
                       </td>
                       <td>
                         <StarDisplay rating={r.rating} />
                       </td>
-                      <td style={{ color: "#334155", maxWidth: "340px", fontStyle: "italic" }}>
+                      <td style={{ color: "#bdc0c5", maxWidth: "340px", fontStyle: "italic" }}>
                         "{r.comment}"
                       </td>
                       <td>

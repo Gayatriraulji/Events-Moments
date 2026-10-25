@@ -17,7 +17,7 @@ const CommerceChart = ({ labels, data }) => {
     datasets: [
       {
         data,
-        borderColor: "#4B3FBF",
+        borderColor: "#C5A059",
         backgroundColor: "transparent",
         tension: 0.4,
         pointRadius: 2,

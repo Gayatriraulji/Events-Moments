@@ -4,7 +4,7 @@ import { Package, Plus, Edit2, Trash2, Image as ImageIcon, Check, X, Search, Upl
 
 const tierBadges = {
   basic: { bg: "#F1F5F9", color: "#475569" },
-  premium: { bg: "#EEF2FF", color: "#4F46E5" },
+  premium: { bg: "rgba(197,160,89,0.12)", color: "#C5A059" },
   luxury: { bg: "#FEF3C7", color: "#D97706" },
 };
 
@@ -154,8 +154,8 @@ const AdminPackages = () => {
     p.tier.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const tierColor = formData.tier === "luxury" ? "#D97706" : formData.tier === "premium" ? "#4F46E5" : "#475569";
-  const tierBg = formData.tier === "luxury" ? "#FEF3C7" : formData.tier === "premium" ? "#EEF2FF" : "#F1F5F9";
+  const tierColor = formData.tier === "luxury" ? "#D97706" : formData.tier === "premium" ? "#C5A059" : "#475569";
+  const tierBg = formData.tier === "luxury" ? "#FEF3C7" : formData.tier === "premium" ? "rgba(197,160,89,0.12)" : "#F1F5F9";
 
   return (
     <div className="admin-shell">
@@ -163,10 +163,10 @@ const AdminPackages = () => {
       <div className="admin-main-content animate-fade-in">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
               Package Management
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               Configure event package bundles, inclusions, and tier pricing.
             </p>
           </div>
@@ -186,7 +186,7 @@ const AdminPackages = () => {
 
         {/* Add / Edit Package Form Card */}
         <div className="card-modern" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "1.25rem" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#C5A059", marginBottom: "1.25rem" }}>
             {editingId ? "✏️ Edit Event Package" : "➕ Create New Event Package"}
           </h3>
 
@@ -228,7 +228,7 @@ const AdminPackages = () => {
                 onDragLeave={handleDragLeave}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: `2px dashed ${isDragging ? "#4F46E5" : "#CBD5E1"}`,
+                  border: `2px dashed ${isDragging ? "#C5A059" : "#CBD5E1"}`,
                   borderRadius: "14px",
                   background: isDragging ? "rgba(79,70,229,0.04)" : "#F8FAFC",
                   padding: "1.5rem",
@@ -260,7 +260,7 @@ const AdminPackages = () => {
                   </>
                 ) : (
                   <>
-                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center", color: "#4F46E5", flexShrink: 0 }}>
+                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "rgba(197,160,89,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#C5A059", flexShrink: 0 }}>
                       <UploadCloud size={26} />
                     </div>
                     <div>
@@ -292,7 +292,7 @@ const AdminPackages = () => {
         {/* Packages Table */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading packages...</p>
           </div>
         ) : (
@@ -333,7 +333,7 @@ const AdminPackages = () => {
                             </div>
                           )}
                         </td>
-                        <td style={{ fontWeight: 700, color: "#0F172A" }}>{pkg.name}</td>
+                        <td style={{ fontWeight: 700, color: "#C5A059" }}>{pkg.name}</td>
                         <td>
                           <span className="badge" style={{ background: badge.bg, color: badge.color }}>
                             {pkg.tier}
@@ -342,7 +342,7 @@ const AdminPackages = () => {
                         <td style={{ color: "#64748B", maxWidth: "260px" }}>
                           {(pkg.inclusions || []).join(", ") || "—"}
                         </td>
-                        <td style={{ fontWeight: 700, color: "#4F46E5" }}>
+                        <td style={{ fontWeight: 700, color: "#C5A059" }}>
                           ₹{pkg.price ? pkg.price.toLocaleString("en-IN") : "0"}
                         </td>
                         <td>

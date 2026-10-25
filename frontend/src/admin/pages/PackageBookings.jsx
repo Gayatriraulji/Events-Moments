@@ -138,10 +138,10 @@ const AdminPackageBookings = () => {
         {/* Top Header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
               Package Bookings
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               Manage bundle reservations, update status, and export PDF/Excel.
             </p>
           </div>
@@ -173,7 +173,7 @@ const AdminPackageBookings = () => {
         {/* Table */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading package bookings...</p>
           </div>
         ) : (
@@ -201,26 +201,26 @@ const AdminPackageBookings = () => {
                 ) : (
                   filteredBookings.map((b) => (
                     <tr key={b._id}>
-                      <td style={{ fontWeight: 700, color: "#0F172A" }}>
+                      <td style={{ fontWeight: 700, color: "#C5A059" }}>
                         {b.package?.name || "—"}
                       </td>
                       <td>
-                        <div style={{ fontWeight: 700, color: "#0F172A" }}>{b.name}</div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>{b.email}</div>
+                        <div style={{ fontWeight: 700, color: "#C5A059" }}>{b.name}</div>
+                        <div style={{ fontSize: "0.75rem", color: "#E2E8F0" }}>{b.email}</div>
                       </td>
                       <td>
-                        <div style={{ fontSize: "0.85rem", color: "#334155" }}>{b.phone}</div>
+                        <div style={{ fontSize: "0.85rem", color: "#E2E8F0" }}>{b.phone}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 600, color: "#0F172A" }}>
+                        <div style={{ fontWeight: 600, color: "#E2E8F0" }}>
                           {new Date(b.eventDate).toLocaleDateString()}
                         </div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>
+                        <div style={{ fontSize: "0.75rem", color: "#E2E8F0" }}>
                           {formatTime(b.startTime)} - {formatTime(b.endTime)}
                         </div>
                       </td>
                       <td style={{ fontWeight: 600 }}>{b.guests}</td>
-                      <td style={{ fontWeight: 700, color: "#4F46E5" }}>
+                      <td style={{ fontWeight: 700, color: "#C5A059" }}>
                         <div>{b.package?.price !== undefined ? `₹${b.package.price.toLocaleString("en-IN")}` : "—"}</div>
                         {b.paymentStatus === "paid" ? (
                           <span style={{ fontSize: "0.7rem", color: "#059669", background: "#D1FAE5", padding: "2px 6px", borderRadius: "6px", display: "inline-block", marginTop: "3px" }}>

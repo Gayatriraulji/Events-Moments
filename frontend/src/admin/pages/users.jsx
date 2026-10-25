@@ -103,10 +103,10 @@ const Users = () => {
         {/* Header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#c5a059", letterSpacing: "-0.02em" }}>
               User Management
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               View and update registered user accounts and administrative privileges.
             </p>
           </div>
@@ -131,8 +131,8 @@ const Users = () => {
         )}
 
         {loading ? (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "#E2E8F0" }}>
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading users list...</p>
           </div>
         ) : (
@@ -149,7 +149,7 @@ const Users = () => {
               <tbody>
                 {filteredUsers.length === 0 ? (
                   <tr>
-                    <td colSpan="4" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
+                    <td colSpan="4" style={{ textAlign: "center", padding: "2rem", color: "#E2E8F0" }}>
                       No users found.
                     </td>
                   </tr>
@@ -163,8 +163,8 @@ const Users = () => {
                               width: "36px",
                               height: "36px",
                               borderRadius: "50%",
-                              background: user.role === "admin" ? "#EEF2FF" : "#F1F5F9",
-                              color: user.role === "admin" ? "#4F46E5" : "#475569",
+                              background: user.role === "admin" ? "rgba(197,160,89,0.12)" : "#F1F5F9",
+                              color: user.role === "admin" ? "#C5A059" : "#475569",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -174,7 +174,7 @@ const Users = () => {
                           >
                             {user.username ? user.username.charAt(0).toUpperCase() : "U"}
                           </div>
-                          <span style={{ fontWeight: 700, color: "#0F172A" }}>{user.username}</span>
+                          <span style={{ fontWeight: 700, color: "#E2E8F0" }}>{user.username}</span>
                         </div>
                       </td>
                       <td>{user.email}</td>

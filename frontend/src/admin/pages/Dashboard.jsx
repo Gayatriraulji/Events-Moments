@@ -6,7 +6,7 @@ import AudienceChart from "../components/AudienceChart";
 import BookingsTable from "../components/BookingsTable";
 import { Users, Calendar, CheckCircle2, IndianRupee, Clock, ArrowUpRight } from "lucide-react";
 
-const avatarColors = ["#4F46E5", "#059669", "#D97706", "#7C3AED", "#2563EB"];
+const avatarColors = ["#C5A059", "#059669", "#D97706", "#7C3AED", "#DFBF80"];
 
 const getInitials = (name) => {
   if (!name) return "—";
@@ -49,8 +49,8 @@ const Dashboard = () => {
       <div className="admin-shell">
         <Sidebar />
         <div className="admin-main-content" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ textAlign: "center", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+          <div style={{ textAlign: "center", color: "#E2E8F0" }}>
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading admin analytics...</p>
           </div>
         </div>
@@ -92,7 +92,7 @@ const Dashboard = () => {
     amount: `₹${(b.price || 0).toLocaleString("en-IN")}`,
     amountChange: "",
     progress: statusProgress[b.status] || 0,
-    progressColor: statusColor[b.status] || "#64748B",
+    progressColor: statusColor[b.status] || "#E2E8F0",
     guests: "—",
     initials: getInitials(b.name),
     avatarColor: avatarColors[i % avatarColors.length],
@@ -105,10 +105,10 @@ const Dashboard = () => {
       <div className="admin-main-content animate-fade-in">
         {/* Top Header Bar */}
         <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#c5a059", letterSpacing: "-0.02em" }}>
             Admin Analytics & Overview
           </h1>
-          <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+          <p style={{ fontSize: "0.875rem", color: "white" }}>
             Real-time metric summary, booking statistics, and platform revenue.
           </p>
         </div>
@@ -123,7 +123,7 @@ const Dashboard = () => {
                 <ArrowUpRight size={14} /> Registered Accounts
               </span>
             </div>
-            <div className="stat-icon-wrapper" style={{ background: "#EEF2FF", color: "#4F46E5" }}>
+            <div className="stat-icon-wrapper" style={{ background: "rgba(197,160,89,0.12)", color: "#C5A059" }}>
               <Users size={22} />
             </div>
           </div>
@@ -132,7 +132,7 @@ const Dashboard = () => {
             <div>
               <div className="stat-label">Total Bookings</div>
               <div className="stat-value">{stats.totalBookings}</div>
-              <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 600 }}>All-time Requests</span>
+              <span style={{ fontSize: "0.75rem", color: "white", fontWeight: 600 }}>All-time Requests</span>
             </div>
             <div className="stat-icon-wrapper" style={{ background: "#FEF3C7", color: "#D97706" }}>
               <Calendar size={22} />
@@ -154,9 +154,9 @@ const Dashboard = () => {
             <div>
               <div className="stat-label">Total Revenue</div>
               <div className="stat-value">₹{stats.totalRevenue.toLocaleString("en-IN")}</div>
-              <span style={{ fontSize: "0.75rem", color: "#4F46E5", fontWeight: 700 }}>Confirmed Bookings</span>
+              <span style={{ fontSize: "0.75rem", color: "#C5A059", fontWeight: 700 }}>Confirmed Bookings</span>
             </div>
-            <div className="stat-icon-wrapper" style={{ background: "#EEF2FF", color: "#4F46E5" }}>
+            <div className="stat-icon-wrapper" style={{ background: "rgba(197,160,89,0.12)", color: "#C5A059" }}>
               <IndianRupee size={22} />
             </div>
           </div>
@@ -166,7 +166,7 @@ const Dashboard = () => {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.25rem", marginBottom: "1.75rem" }}>
           <div className="card-modern" style={{ padding: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-              <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#0F172A" }}>Booking Activity (Last 7 Days)</h3>
+              <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#E2E8F0" }}>Booking Activity (Last 7 Days)</h3>
               <Clock size={18} color="#94A3B8" />
             </div>
             <CommerceChart labels={commerceLabels} data={commerceData} />
@@ -174,7 +174,7 @@ const Dashboard = () => {
 
           <div className="card-modern" style={{ padding: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-              <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#0F172A" }}>Status Distribution</h3>
+              <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#E2E8F0" }}>Status Distribution</h3>
             </div>
             <MembershipChart labels={membershipLabels} data={membershipData} />
           </div>
@@ -182,7 +182,7 @@ const Dashboard = () => {
 
         {/* Revenue & Recent Bookings Table */}
         <div className="card-modern" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "1rem" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#E2E8F0", marginBottom: "1rem" }}>
             Recent Booking Requests
           </h3>
           <BookingsTable bookings={bookingsTableData} />

@@ -16,7 +16,7 @@ const MembershipChart = ({ labels, data }) => {
     datasets: [
       {
         data,
-        backgroundColor: ["#AEB8F0", "#4B3FBF", "#9FE1CB", "#4B3FBF", "#AEB8F0"],
+        backgroundColor: ["#DFBF80", "#C5A059", "#9FE1CB", "#C5A059", "#DFBF80"],
         borderRadius: 4,
       },
     ],

@@ -132,17 +132,17 @@ const AdminGallery = () => {
       <Sidebar />
       <div className="admin-main-content animate-fade-in">
         <div style={{ marginBottom: "1.5rem" }}>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
             Gallery Management
           </h1>
-          <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+          <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
             Upload high-res event photographs to display in the public showcase portfolio.
           </p>
         </div>
 
         {/* Upload Form Card */}
         <div className="card-modern" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "1.25rem" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#C5A059", marginBottom: "1.25rem" }}>
             📸 Upload Event Photos
           </h3>
 
@@ -165,7 +165,7 @@ const AdminGallery = () => {
               onDragLeave={handleDragLeave}
               onClick={() => fileInputRef.current?.click()}
               style={{
-                border: `2px dashed ${isDragging ? "#4F46E5" : "#CBD5E1"}`,
+                border: `2px dashed ${isDragging ? "#C5A059" : "#CBD5E1"}`,
                 borderRadius: "16px",
                 background: isDragging ? "rgba(79,70,229,0.05)" : "#F8FAFC",
                 padding: "2rem 1.5rem",
@@ -175,7 +175,7 @@ const AdminGallery = () => {
                 marginBottom: "1rem",
               }}
             >
-              <div style={{ width: "60px", height: "60px", borderRadius: "14px", background: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center", color: "#4F46E5", margin: "0 auto 0.75rem" }}>
+              <div style={{ width: "60px", height: "60px", borderRadius: "14px", background: "rgba(197,160,89,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#C5A059", margin: "0 auto 0.75rem" }}>
                 <UploadCloud size={28} />
               </div>
               <p style={{ fontSize: "1rem", fontWeight: 700, color: "#0F172A", marginBottom: "4px" }}>
@@ -239,7 +239,7 @@ const AdminGallery = () => {
         {/* Image Grid */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading gallery photos...</p>
           </div>
         ) : images.length === 0 ? (

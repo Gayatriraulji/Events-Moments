@@ -9,7 +9,7 @@ const AudienceChart = ({ data }) => {
     datasets: [
       {
         data,
-        backgroundColor: ["#4B3FBF", "#9FE1CB"],
+        backgroundColor: ["#C5A059", "#9FE1CB"],
         borderWidth: 0,
       },
     ],

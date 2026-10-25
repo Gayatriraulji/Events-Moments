@@ -92,7 +92,7 @@ const AdminSettings = () => {
     <div style={{ display: "flex", background: "#F7F7FA", minHeight: "100vh" }}>
       <Sidebar />
       <div style={{ flex: 1, padding: "1.5rem" }}>
-        <h2 style={{ fontWeight: 500, fontSize: "20px", color: "#2B2560", margin: "0 0 1.2rem" }}>
+        <h2 style={{ fontWeight: 500, fontSize: "20px", color: "#C5A059", margin: "0 0 1.2rem" }}>
           Settings
         </h2>
 
@@ -156,7 +156,7 @@ const AdminSettings = () => {
           <button
             type="submit"
             disabled={saving}
-            style={{ padding: "12px", borderRadius: "10px", border: "none", background: "#4B3FBF", color: "#fff", fontSize: "14px", cursor: "pointer" }}
+            style={{ padding: "12px", borderRadius: "10px", border: "none", background: "linear-gradient(135deg, #C5A059 0%, #DFBF80 100%)", color: "#141E15", fontSize: "14px", cursor: "pointer", fontWeight: 700 }}
           >
             {saving ? "Saving..." : "Save Settings"}
           </button>

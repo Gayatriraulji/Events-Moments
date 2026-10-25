@@ -150,10 +150,10 @@ const AdminCategories = () => {
       <div className="admin-main-content animate-fade-in">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#c5a059", letterSpacing: "-0.02em" }}>
               Category Management
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               Add, edit, or remove event categories and set pricing.
             </p>
           </div>
@@ -173,7 +173,7 @@ const AdminCategories = () => {
 
         {/* Add / Edit Form Card */}
         <div className="card-modern" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "1.25rem" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#c5a059", marginBottom: "1.25rem" }}>
             {editingId ? "✏️ Edit Event Category" : "➕ Add New Event Category"}
           </h3>
 
@@ -202,9 +202,9 @@ const AdminCategories = () => {
                 onDragLeave={handleDragLeave}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: `2px dashed ${isDragging ? "#4F46E5" : "#CBD5E1"}`,
+                  border: `2px dashed ${isDragging ? "#C5A059" : "#CBD5E1"}`,
                   borderRadius: "14px",
-                  background: isDragging ? "rgba(79,70,229,0.04)" : "#F8FAFC",
+                  background: isDragging ? "#c5a059" : "#F8FAFC",
                   padding: "1.5rem",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
@@ -234,7 +234,7 @@ const AdminCategories = () => {
                   </>
                 ) : (
                   <>
-                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center", color: "#4F46E5", flexShrink: 0 }}>
+                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "rgba(197,160,89,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#C5A059", flexShrink: 0 }}>
                       <UploadCloud size={26} />
                     </div>
                     <div>
@@ -267,7 +267,7 @@ const AdminCategories = () => {
         {/* Categories Table */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading categories...</p>
           </div>
         ) : (
@@ -297,17 +297,17 @@ const AdminCategories = () => {
                           <img
                             src={cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`}
                             alt={cat.name}
-                            style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "10px", border: "2px solid #F1F5F9" }}
+                            style={{ width: "90px", height: "50px", objectFit: "cover", borderRadius: "10px", border: "2px solid #F1F5F9" }}
                           />
                         ) : (
-                          <div style={{ width: "50px", height: "50px", borderRadius: "10px", background: "#F1F5F9", display: "flex", alignItems: "center", justifyContent: "center", color: "#94A3B8" }}>
+                          <div style={{ width: "90px", height: "50px", borderRadius: "10px", background: "#F1F5F9", display: "flex", alignItems: "center", justifyContent: "center", color: "#94A3B8" }}>
                             <ImageIcon size={20} />
                           </div>
                         )}
                       </td>
-                      <td style={{ fontWeight: 700, color: "#0F172A" }}>{cat.name}</td>
-                      <td style={{ color: "#64748B", maxWidth: "300px" }}>{cat.description || "—"}</td>
-                      <td style={{ fontWeight: 700, color: "#4F46E5" }}>
+                      <td style={{ fontWeight: 700, color: "#C5A059" }}>{cat.name}</td>
+                      <td style={{ color: "#E2E8F0", maxWidth: "300px" }}>{cat.description || "—"}</td>
+                      <td style={{ fontWeight: 700, color: "#C5A059" }}>
                         ₹{cat.price ? cat.price.toLocaleString("en-IN") : "0"}
                       </td>
                       <td>

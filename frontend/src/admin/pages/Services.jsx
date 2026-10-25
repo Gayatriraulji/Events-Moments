@@ -153,10 +153,10 @@ const AdminServices = () => {
         {/* Header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#0F172A", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
               Services Management
             </h1>
-            <p style={{ fontSize: "0.875rem", color: "#64748B" }}>
+            <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
               Add, edit or remove event services with photos and feature highlights.
             </p>
           </div>
@@ -175,7 +175,7 @@ const AdminServices = () => {
 
         {/* Add / Edit Form Card */}
         <div className="card-modern" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#0F172A", marginBottom: "1.25rem" }}>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#C5A059", marginBottom: "1.25rem" }}>
             {editingId ? "✏️ Edit Service" : "➕ Add New Service"}
           </h3>
 
@@ -204,9 +204,9 @@ const AdminServices = () => {
                 onDragLeave={handleDragLeave}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: `2px dashed ${isDragging ? "#4F46E5" : "#CBD5E1"}`,
+                  border: `2px dashed ${isDragging ? "#C5A059" : "#CBD5E1"}`,
                   borderRadius: "14px",
-                  background: isDragging ? "rgba(79,70,229,0.04)" : "#F8FAFC",
+                  background: isDragging ? "#C5A059" : "#F8FAFC",
                   padding: "1.5rem",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
@@ -229,7 +229,7 @@ const AdminServices = () => {
                   </>
                 ) : (
                   <>
-                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center", color: "#4F46E5", flexShrink: 0 }}>
+                    <div style={{ width: "56px", height: "56px", borderRadius: "12px", background: "rgba(197,160,89,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#C5A059", flexShrink: 0 }}>
                       <UploadCloud size={26} />
                     </div>
                     <div>
@@ -262,7 +262,7 @@ const AdminServices = () => {
         {/* Services Table */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
-            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#4F46E5", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
+            <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading services...</p>
           </div>
         ) : (
@@ -301,12 +301,12 @@ const AdminServices = () => {
                           </div>
                         )}
                       </td>
-                      <td style={{ fontWeight: 700, color: "#0F172A" }}>{srv.name}</td>
+                      <td style={{ fontWeight: 700, color: "#C5A059" }}>{srv.name}</td>
                       <td style={{ color: "#64748B", maxWidth: "250px", fontSize: "0.85rem" }}>{srv.description || "—"}</td>
                       <td style={{ maxWidth: "220px" }}>
                         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
                           {(srv.highlights || []).slice(0, 3).map((h, i) => (
-                            <span key={i} style={{ fontSize: "0.7rem", fontWeight: 600, background: "#EEF2FF", color: "#4F46E5", padding: "2px 8px", borderRadius: "9999px" }}>
+                            <span key={i} style={{ fontSize: "0.7rem", fontWeight: 600, background: "rgba(197,160,89,0.12)", color: "#C5A059", padding: "2px 8px", borderRadius: "9999px" }}>
                               {h}
                             </span>
                           ))}

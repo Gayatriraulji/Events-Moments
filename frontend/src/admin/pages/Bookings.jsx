@@ -240,8 +240,8 @@ const AdminBookings = () => {
                           style={{
                             padding: "4px 8px",
                             fontSize: "0.8rem",
-                            fontWeight: 700,
-                            borderRadius: "8px",
+                            fontWeight: 900,
+                            borderRadius: "5px",
                             color: b.status === "confirmed" ? "#059669" : b.status === "cancelled" ? "#DC2626" : "#B45309",
                             background: b.status === "confirmed" ? "#D1FAE5" : b.status === "cancelled" ? "#FFE4E6" : "#FEF3C7",
                           }}

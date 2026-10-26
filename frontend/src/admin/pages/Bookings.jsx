@@ -172,7 +172,7 @@ const AdminBookings = () => {
 
         {/* Table */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "4rem 0", color: "#64748B" }}>
+          <div style={{ textAlign: "center", padding: "4rem 0", color: "#c5a059" }}>
             <div style={{ width: "40px", height: "40px", border: "3px solid #E2E8F0", borderTopColor: "#C5A059", borderRadius: "50%", margin: "0 auto 1rem", animation: "spin 1s linear infinite" }} />
             <p style={{ fontWeight: 600 }}>Loading category bookings...</p>
           </div>
@@ -194,7 +194,7 @@ const AdminBookings = () => {
               <tbody>
                 {filteredBookings.length === 0 ? (
                   <tr>
-                    <td colSpan="8" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
+                    <td colSpan="8" style={{ textAlign: "center", padding: "2rem", color: "#E2E8F0" }}>
                       No category bookings found.
                     </td>
                   </tr>
@@ -206,16 +206,16 @@ const AdminBookings = () => {
                       </td>
                       <td>
                         <div style={{ fontWeight: 700, color: "#c5a059" }}>{b.name}</div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>{b.email}</div>
+                        <div style={{ fontSize: "0.75rem", color: "#E2E8F0" }}>{b.email}</div>
                       </td>
                       <td>
-                        <div style={{ fontSize: "0.85rem", color: "#334155" }}>{b.phone}</div>
+                        <div style={{ fontSize: "0.85rem", color: "#E2E8F0" }}>{b.phone}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: 600, color: "#0F172A" }}>
+                        <div style={{ fontWeight: 600, color: "#E2E8F0" }}>
                           {new Date(b.eventDate).toLocaleDateString()}
                         </div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>
+                        <div style={{ fontSize: "0.75rem", color: "#E2E8F0" }}>
                           {formatTime(b.startTime)} - {formatTime(b.endTime)}
                         </div>
                       </td>

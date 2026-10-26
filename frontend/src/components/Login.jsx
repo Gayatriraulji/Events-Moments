@@ -275,17 +275,11 @@ const Login = () => {
           </button>
         </form>
 
-        <div style={{ textAlign: "center", marginTop: "2rem", display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ textAlign: "center", marginTop: "2rem" }}>
           <div style={{ fontSize: "0.875rem", color: "#8EA990" }}>
             New to Aloriga?{" "}
             <Link to="/register" style={{ color: "#DFBF80", fontWeight: 700, textDecoration: "none" }}>
               Join the Studio <ArrowRight size={13} style={{ display: "inline", verticalAlign: "middle" }} />
-            </Link>
-          </div>
-          <div style={{ fontSize: "0.8rem", color: "#728274" }}>
-            Authorized Staff?{" "}
-            <Link to="/admin/login" style={{ color: "#8EA990", fontWeight: 600, textDecoration: "none" }}>
-              Admin Portal
             </Link>
           </div>
         </div>

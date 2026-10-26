@@ -12,7 +12,6 @@ import {
   BookOpen,
   Settings,
   LogOut,
-  ArrowLeft,
   Zap,
 } from "lucide-react";
 
@@ -25,7 +24,7 @@ const Sidebar = () => {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("role");
     localStorage.removeItem("username");
-    navigate("/login");
+    navigate("/admin/login");
   };
 
   const menuItems = [
@@ -168,13 +167,6 @@ const Sidebar = () => {
             </Link>
           );
         })}
-
-        <div style={{ margin: "0.6rem 0", borderTop: "1px solid rgba(255,255,255,0.08)" }} />
-
-        <Link to="/" style={linkStyle(false)}>
-          <ArrowLeft size={15} />
-          <span>Back to Studio</span>
-        </Link>
       </div>
 
       {/* Logout Footer */}

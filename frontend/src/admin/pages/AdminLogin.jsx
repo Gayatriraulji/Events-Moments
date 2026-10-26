@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { ShieldCheck, Mail, Lock, LogIn, ArrowLeft, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ShieldCheck, Mail, Lock, LogIn, Sparkles } from "lucide-react";
 
 const AdminLogin = () => {
   const [credentials, setCredentials] = useState({
@@ -298,22 +298,6 @@ const AdminLogin = () => {
             <span>{loading ? "Authorizing..." : "Access Admin Console"}</span>
           </button>
         </form>
-
-        <div style={{ textAlign: "center", marginTop: "1.75rem", fontSize: "0.875rem" }}>
-          <Link
-            to="/"
-            style={{
-              color: "#DFBF80",
-              fontWeight: 600,
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            <ArrowLeft size={15} /> Back to Main Website
-          </Link>
-        </div>
       </div>
     </div>
   );

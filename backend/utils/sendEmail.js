@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const sendEmail = async ({ to, subject, html, attachment }) => {
+export const sendEmail = async ({ to, subject, html, attachment, attachments }) => {
   try {
     const payload = {
       sender: { email: process.env.BREVO_SENDER_EMAIL, name: "EventoAdmin" },
@@ -9,13 +9,17 @@ export const sendEmail = async ({ to, subject, html, attachment }) => {
       htmlContent: html,
     };
 
+    // Support both single attachment (legacy) and multiple attachments array
+    const allAttachments = [];
     if (attachment) {
-      payload.attachment = [
-        {
-          name: attachment.name,
-          content: attachment.content,
-        },
-      ];
+      allAttachments.push({ name: attachment.name, content: attachment.content });
+    }
+    if (attachments && Array.isArray(attachments)) {
+      attachments.forEach((a) => allAttachments.push({ name: a.name, content: a.content }));
+    }
+
+    if (allAttachments.length > 0) {
+      payload.attachment = allAttachments;
     }
 
     await axios.post("https://api.brevo.com/v3/smtp/email", payload, {

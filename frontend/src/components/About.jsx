@@ -152,7 +152,7 @@ const About = () => {
             className="aloriga-pill-btn gold"
             style={{ width: "100%", justifyContent: "center", padding: "12px" }}
           >
-            <span>BOOK A CONSULTATION</span>
+            <span>CONTACT US</span>
             <ArrowRight size={16} />
           </button>
         </div>

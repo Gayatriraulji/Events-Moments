@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Calendar, Clock, User, Mail, Phone, Users, MessageSquare, CheckCircle2, ArrowLeft, Tag, Package as PackageIcon, CreditCard, ShieldCheck, Sparkles } from "lucide-react";
+import { Calendar, Clock, User, Mail, Phone, Users, MessageSquare, CheckCircle2, ArrowLeft, Tag, Package as PackageIcon, CreditCard, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
 import { startRazorpayCheckout } from "../utils/razorpay";
 
 const hours12 = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -70,6 +70,7 @@ const BookPackage = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -121,13 +122,14 @@ const BookPackage = () => {
     e.preventDefault();
 
     if (!startHour || startMinute === "" || !endHour || endMinute === "") {
-      alert("Please select both start and end time");
+      setBookingError("Please select both start and end time");
       return;
     }
 
     const startTime = to24Hour(startHour, startMinute, startAmpm);
     const endTime = to24Hour(endHour, endMinute, endAmpm);
 
+    setBookingError("");
     setSubmitting(true);
     try {
       await startRazorpayCheckout({
@@ -156,10 +158,15 @@ const BookPackage = () => {
 
             const response = await res.json();
             if (!res.ok) {
-              alert(response.message || "Payment verification failed");
+              if (res.status === 409) {
+                setBookingError(response.message || "🚫 This time slot is already reserved for this date. Please choose a different time.");
+              } else {
+                setBookingError(response.message || "Payment verification failed");
+              }
               setSubmitting(false);
               return;
             }
+            setBookingError("");
 
             setPaymentDetails({
               paymentId: rzpResponse.razorpay_payment_id,
@@ -168,13 +175,13 @@ const BookPackage = () => {
             });
             setSubmitted(true);
           } catch (err) {
-            alert("Error confirming package reservation: " + err.message);
+            setBookingError("Error confirming package reservation: " + err.message);
           } finally {
             setSubmitting(false);
           }
         },
         onError: (err) => {
-          alert("Payment failed: " + (err.description || err.message));
+          setBookingError("Payment failed: " + (err.description || err.message));
           setSubmitting(false);
         },
         onDismiss: () => {
@@ -182,7 +189,7 @@ const BookPackage = () => {
         },
       });
     } catch (error) {
-      alert(error.message);
+      setBookingError(error.message);
       setSubmitting(false);
     }
   };
@@ -191,30 +198,35 @@ const BookPackage = () => {
     e.preventDefault();
 
     if (!startHour || startMinute === "" || !endHour || endMinute === "") {
-      alert("Please select both start and end time");
+      setBookingError("Please select both start and end time");
       return;
     }
 
     const startTime = to24Hour(startHour, startMinute, startAmpm);
     const endTime = to24Hour(endHour, endMinute, endAmpm);
 
+    setBookingError("");
     setSubmitting(true);
     try {
       const res = await fetch(`${API_URL}/package-bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, startTime, endTime, packageId: id }),
+        body: JSON.stringify({ ...formData, startTime, endTime, package: id, packageId: id }),
       });
 
       const response = await res.json();
       if (!res.ok) {
-        alert(response.message || "Booking failed");
+        if (res.status === 409) {
+          setBookingError("🚫 This time slot is already reserved for this date. Please choose a different time.");
+        } else {
+          setBookingError(response.message || "Booking failed. Please try again.");
+        }
         return;
       }
 
       setSubmitted(true);
     } catch (error) {
-      alert(error.message);
+      setBookingError(error.message);
     } finally {
       setSubmitting(false);
     }
@@ -631,6 +643,26 @@ const BookPackage = () => {
                   Secured transaction with instant digital invoice delivered upon confirmation.
                 </p>
               </div>
+
+              {bookingError && (
+                <div
+                  style={{
+                    background: "rgba(220, 38, 38, 0.15)",
+                    border: "1px solid rgba(220, 38, 38, 0.4)",
+                    color: "#FCA5A5",
+                    padding: "12px 16px",
+                    borderRadius: "12px",
+                    fontSize: "0.85rem",
+                    marginBottom: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <AlertCircle size={16} color="#EF4444" style={{ flexShrink: 0 }} />
+                  <span>{bookingError}</span>
+                </div>
+              )}
 
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <button

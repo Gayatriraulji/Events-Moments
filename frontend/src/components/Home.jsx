@@ -137,10 +137,6 @@ const Home = () => {
   const [aiCalculating, setAiCalculating] = useState(false);
   const [aiResult, setAiResult] = useState(null);
 
-  // Quick Consultation Modal State
-  const [consultModalOpen, setConsultModalOpen] = useState(false);
-  const [consultForm, setConsultForm] = useState({ name: "", email: "", occasion: "Wedding", date: "", notes: "" });
-  const [consultSubmitted, setConsultSubmitted] = useState(false);
 
   const handleRunAiMatch = () => {
     setAiCalculating(true);
@@ -164,14 +160,6 @@ const Home = () => {
     }, 1200);
   };
 
-  const handleConsultSubmit = (e) => {
-    e.preventDefault();
-    setConsultSubmitted(true);
-    setTimeout(() => {
-      setConsultModalOpen(false);
-      setConsultSubmitted(false);
-    }, 2500);
-  };
 
   return (
     <div style={{ background: "#141E15", color: "#F6F4EE", minHeight: "100vh", overflowX: "hidden" }}>
@@ -269,14 +257,14 @@ const Home = () => {
 
             {/* Action Buttons */}
             <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
-              <button
-                onClick={() => setConsultModalOpen(true)}
+              <Link
+                to="/contact"
                 className="aloriga-pill-btn primary"
-                style={{ padding: "14px 30px", fontSize: "0.85rem" }}
+                style={{ padding: "14px 30px", fontSize: "0.85rem", textDecoration: "none" }}
               >
-                <span>BOOK A CONSULTATION</span>
+                <span>CONTACT US</span>
                 <ArrowRight size={16} />
-              </button>
+              </Link>
 
               <button
                 onClick={() => setAiModalOpen(true)}
@@ -720,13 +708,13 @@ const Home = () => {
                 Let our master botanists craft your dream celebration with precision and love.
               </p>
             </div>
-            <button
-              onClick={() => setConsultModalOpen(true)}
+            <Link
+              to="/contact"
               className="aloriga-pill-btn primary"
-              style={{ padding: "11px 26px", fontSize: "0.8rem" }}
+              style={{ padding: "11px 26px", fontSize: "0.8rem", textDecoration: "none" }}
             >
-              BOOK A CONSULTATION
-            </button>
+              CONTACT US
+            </Link>
           </div>
         </div>
       </section>
@@ -1644,211 +1632,7 @@ const Home = () => {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 9. BOOK A CONSULTATION MODAL */}
-      {/* ========================================================================= */}
-      {consultModalOpen && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(10, 16, 11, 0.85)",
-            backdropFilter: "blur(16px)",
-            zIndex: 9999,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1.5rem",
-          }}
-        >
-          <div
-            style={{
-              background: "#1C291D",
-              borderRadius: "28px",
-              border: "1px solid rgba(197, 160, 89, 0.4)",
-              maxWidth: "540px",
-              width: "100%",
-              padding: "2.5rem",
-              position: "relative",
-              boxShadow: "0 25px 60px rgba(0, 0, 0, 0.8)",
-              color: "#F6F4EE",
-            }}
-          >
-            <button
-              onClick={() => setConsultModalOpen(false)}
-              style={{
-                position: "absolute",
-                top: "1.5rem",
-                right: "1.5rem",
-                background: "rgba(255, 255, 255, 0.08)",
-                border: "none",
-                borderRadius: "50%",
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#F6F4EE",
-                cursor: "pointer",
-              }}
-            >
-              <X size={18} />
-            </button>
 
-            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-              <div style={{ fontSize: "0.72rem", letterSpacing: "0.14em", color: "#DFBF80", textTransform: "uppercase", fontWeight: 700, marginBottom: "4px" }}>
-                Atelier Consultation
-              </div>
-              <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "2.2rem", margin: 0 }}>
-                Book a Private Consultation
-              </h3>
-              <p style={{ color: "#B4C2B6", fontSize: "0.88rem", margin: "6px 0 0" }}>
-                Connect with our design team to discuss your bespoke floral requirements.
-              </p>
-            </div>
-
-            {consultSubmitted ? (
-              <div style={{ textAlign: "center", padding: "2rem 0" }}>
-                <CheckCircle2 size={48} color="#C5A059" style={{ margin: "0 auto 1rem" }} />
-                <h4 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.8rem", color: "#FAF7F2", margin: "0 0 6px" }}>
-                  Consultation Request Received
-                </h4>
-                <p style={{ color: "#A8BCA9", fontSize: "0.9rem" }}>
-                  Thank you! Luna and our floral team will review your details and contact you within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleConsultSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "#A8BCA9", marginBottom: "4px" }}>
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Jessica Lara"
-                    value={consultForm.name}
-                    onChange={(e) => setConsultForm({ ...consultForm, name: e.target.value })}
-                    style={{
-                      width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      color: "#FAF7F2",
-                      outline: "none",
-                      fontSize: "0.9rem",
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "#A8BCA9", marginBottom: "4px" }}>
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="jessica@example.com"
-                    value={consultForm.email}
-                    onChange={(e) => setConsultForm({ ...consultForm, email: e.target.value })}
-                    style={{
-                      width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      color: "#FAF7F2",
-                      outline: "none",
-                      fontSize: "0.9rem",
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "#A8BCA9", marginBottom: "4px" }}>
-                      Occasion
-                    </label>
-                    <select
-                      value={consultForm.occasion}
-                      onChange={(e) => setConsultForm({ ...consultForm, occasion: e.target.value })}
-                      style={{
-                        width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: "12px",
-                        background: "#182419",
-                        border: "1px solid rgba(255,255,255,0.12)",
-                        color: "#FAF7F2",
-                        outline: "none",
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      <option value="Wedding">Wedding</option>
-                      <option value="Corporate Event">Corporate Event</option>
-                      <option value="Private Dinner">Private Dinner</option>
-                      <option value="Hotel Installation">Hotel Installation</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "#A8BCA9", marginBottom: "4px" }}>
-                      Event Date
-                    </label>
-                    <input
-                      type="date"
-                      value={consultForm.date}
-                      onChange={(e) => setConsultForm({ ...consultForm, date: e.target.value })}
-                      style={{
-                        width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: "12px",
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.12)",
-                        color: "#FAF7F2",
-                        outline: "none",
-                        fontSize: "0.9rem",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", color: "#A8BCA9", marginBottom: "4px" }}>
-                    Vision Notes
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Tell us about your venue, desired colors, or aesthetic preferences..."
-                    value={consultForm.notes}
-                    onChange={(e) => setConsultForm({ ...consultForm, notes: e.target.value })}
-                    style={{
-                      width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      color: "#FAF7F2",
-                      outline: "none",
-                      fontSize: "0.9rem",
-                      resize: "none",
-                    }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="aloriga-pill-btn gold"
-                  style={{ width: "100%", padding: "12px", marginTop: "0.5rem" }}
-                >
-                  <Send size={15} />
-                  <span>REQUEST CONSULTATION</span>
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
 
     </div>
   );

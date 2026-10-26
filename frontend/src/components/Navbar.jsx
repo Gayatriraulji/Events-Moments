@@ -4,10 +4,8 @@ import {
   Gem,
   LogIn,
   LogOut,
-  LayoutDashboard,
   Menu,
   X,
-  CalendarCheck,
   Home as HomeIcon,
   Info,
   Package as PackageIcon,
@@ -177,64 +175,18 @@ const Navbar = () => {
 
           {/* Right Actions */}
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-            <Link
-              to="/my-bookings"
-              className="desktop-nav"
-              style={{
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                fontSize: "0.78rem",
-                fontWeight: 600,
-                letterSpacing: "0.04em",
-                color: location.pathname === "/my-bookings" ? "#DFBF80" : "#A6B8A8",
-                background: location.pathname === "/my-bookings"
-                  ? "rgba(197, 160, 89, 0.14)"
-                  : "rgba(255,255,255,0.04)",
-                border: `1px solid ${location.pathname === "/my-bookings" ? "rgba(197,160,89,0.3)" : "rgba(255,255,255,0.06)"}`,
-                padding: "7px 14px",
-                borderRadius: "9999px",
-                transition: "all 0.25s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#DFBF80";
-                e.currentTarget.style.borderColor = "rgba(197,160,89,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                if (location.pathname !== "/my-bookings") {
-                  e.currentTarget.style.color = "#A6B8A8";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                }
-              }}
-            >
-              <CalendarCheck size={14} color="#C5A059" />
-              <span>Bookings</span>
-            </Link>
-
             {token ? (
-              <>
-                {role === "admin" && (
-                  <Link
-                    to="/admin/dashboard"
-                    className="btn btn-secondary desktop-nav"
-                    style={{ padding: "7px 14px", fontSize: "0.82rem", borderRadius: "9999px" }}
-                  >
-                    <LayoutDashboard size={14} />
-                    <span>Admin</span>
-                  </Link>
-                )}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    background: "rgba(201, 168, 76, 0.08)",
-                    padding: "5px 12px 5px 6px",
-                    borderRadius: "9999px",
-                    border: "1px solid rgba(201, 168, 76, 0.2)",
-                  }}
-                >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  background: "rgba(201, 168, 76, 0.08)",
+                  padding: "5px 12px 5px 6px",
+                  borderRadius: "9999px",
+                  border: "1px solid rgba(201, 168, 76, 0.2)",
+                }}
+              >
                   <div
                     style={{
                       width: "28px",
@@ -273,7 +225,6 @@ const Navbar = () => {
                     <LogOut size={14} />
                   </button>
                 </div>
-              </>
             ) : (
               <Link
                 to="/login"
@@ -353,27 +304,6 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", margin: "6px 0" }} />
-            <Link
-              to="/my-bookings"
-              onClick={() => setMobileOpen(false)}
-              style={{
-                textDecoration: "none",
-                padding: "11px 14px",
-                borderRadius: "10px",
-                color: "#C9A84C",
-                fontWeight: 600,
-                background: "rgba(201, 168, 76, 0.06)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                fontSize: "0.92rem",
-              }}
-            >
-              <CalendarCheck size={15} color="#C9A84C" />
-              <span>My Bookings</span>
-            </Link>
           </div>
         )}
       </header>

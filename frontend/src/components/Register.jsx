@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Sparkles, User, Mail, Lock, UserPlus, ArrowRight } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const role = localStorage.getItem("role");
+    if (token) {
+      navigate(role === "admin" ? "/admin/dashboard" : "/");
+    }
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     fullName: "",

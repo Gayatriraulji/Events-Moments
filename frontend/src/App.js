@@ -13,6 +13,7 @@ import MyBookings from "./components/MyBookings";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import BookNow from "./components/BookNow";
+import UserProtectedRoute from "./components/UserProtectedRoute";
 import ProtectedRoute from "./admin/components/ProtectedRoute";
 import Dasboard from "./admin/pages/Dashboard";
 import Users from "./admin/pages/users";
@@ -31,17 +32,94 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/categories/:id" element={<BookNow />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/packages" element={<Packages />} />
-        <Route path="/packages/:id" element={<BookPackage />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route
+          path="/"
+          element={
+            <UserProtectedRoute>
+              <Home />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <UserProtectedRoute>
+              <About />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <UserProtectedRoute>
+              <Categories />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/categories/:id"
+          element={
+            <UserProtectedRoute>
+              <BookNow />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <UserProtectedRoute>
+              <Services />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <UserProtectedRoute>
+              <Contact />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/packages"
+          element={
+            <UserProtectedRoute>
+              <Packages />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/packages/:id"
+          element={
+            <UserProtectedRoute>
+              <BookPackage />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/gallery"
+          element={
+            <UserProtectedRoute>
+              <Gallery />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/reviews"
+          element={
+            <UserProtectedRoute>
+              <Reviews />
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-bookings"
+          element={
+            <UserProtectedRoute>
+              <MyBookings />
+            </UserProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />

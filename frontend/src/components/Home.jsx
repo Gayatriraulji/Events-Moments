@@ -684,38 +684,6 @@ const Home = () => {
               </div>
             ))}
           </div>
-
-          {/* Need Custom Arrangement Banner */}
-          <div
-            style={{
-              marginTop: "3.5rem",
-              background: "rgba(31, 46, 33, 0.6)",
-              borderRadius: "22px",
-              border: "1px solid rgba(197, 160, 89, 0.3)",
-              padding: "2rem 2.5rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "1.5rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <div>
-              <h4 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.5rem", color: "#FAF7F2", margin: "0 0 4px" }}>
-                Need a bespoke floral installation?
-              </h4>
-              <p style={{ margin: 0, color: "#A8BCA9", fontSize: "0.9rem" }}>
-                Let our master botanists craft your dream celebration with precision and love.
-              </p>
-            </div>
-            <Link
-              to="/contact"
-              className="aloriga-pill-btn primary"
-              style={{ padding: "11px 26px", fontSize: "0.8rem", textDecoration: "none" }}
-            >
-              CONTACT US
-            </Link>
-          </div>
         </div>
       </section>
 

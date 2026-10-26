@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Sparkles, Mail, Lock, LogIn, ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
 
@@ -9,6 +9,14 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const [focused, setFocused] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const role = localStorage.getItem("role");
+    if (token) {
+      navigate(role === "admin" ? "/admin/dashboard" : "/");
+    }
+  }, [navigate]);
 
   const API_URL = process.env.REACT_APP_API_URL;
   const BASE_URL = API_URL ? `${API_URL}/users` : "http://localhost:8000/api/v1/users";

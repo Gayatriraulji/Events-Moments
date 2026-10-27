@@ -43,27 +43,6 @@ const AdminReviews = () => {
     fetchReviews();
   }, []);
 
-  const handleStatusChange = async (id, newStatus) => {
-    try {
-      const res = await fetch(`${API_URL}/reviews/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      const response = await res.json();
-      if (!res.ok) {
-        alert(response.message || "Update failed");
-        return;
-      }
-      fetchReviews();
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   const handleDelete = async () => {
     try {
       const res = await fetch(`${API_URL}/reviews/${deleteTarget._id}`, {
@@ -94,10 +73,10 @@ const AdminReviews = () => {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
             <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#C5A059", letterSpacing: "-0.02em" }}>
-              Review Approvals & Moderation
+              Customer Reviews
             </h1>
             <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
-              Approve or reject customer review submissions for the public homepage and reviews page.
+              Manage customer reviews. Delete any inappropriate or unwanted reviews.
             </p>
           </div>
 
@@ -129,14 +108,13 @@ const AdminReviews = () => {
                   <th>Client</th>
                   <th>Rating</th>
                   <th>Comment</th>
-                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredReviews.length === 0 ? (
                   <tr>
-                    <td colSpan="5" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
+                    <td colSpan="4" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
                       No reviews found.
                     </td>
                   </tr>
@@ -150,31 +128,18 @@ const AdminReviews = () => {
                       <td>
                         <StarDisplay rating={r.rating} />
                       </td>
-                      <td style={{ color: "#bdc0c5", maxWidth: "340px", fontStyle: "italic" }}>
+                      <td style={{ color: "#bdc0c5", maxWidth: "380px", fontStyle: "italic" }}>
                         "{r.comment}"
                       </td>
                       <td>
-                        <select
-                          value={r.status}
-                          onChange={(e) => handleStatusChange(r._id, e.target.value)}
-                          className="form-select"
-                          style={{
-                            padding: "4px 8px",
-                            fontSize: "0.8rem",
-                            fontWeight: 700,
-                            borderRadius: "8px",
-                            color: r.status === "approved" ? "#059669" : r.status === "rejected" ? "#DC2626" : "#B45309",
-                            background: r.status === "approved" ? "#D1FAE5" : r.status === "rejected" ? "#FFE4E6" : "#FEF3C7",
-                          }}
+                        <button
+                          onClick={() => setDeleteTarget(r)}
+                          className="btn btn-danger"
+                          style={{ padding: "6px 12px", fontSize: "0.75rem", display: "inline-flex", alignItems: "center", gap: "6px" }}
+                          title="Delete Review"
                         >
-                          <option value="pending">Pending</option>
-                          <option value="approved">Approved</option>
-                          <option value="rejected">Rejected</option>
-                        </select>
-                      </td>
-                      <td>
-                        <button onClick={() => setDeleteTarget(r)} className="btn btn-danger" style={{ padding: "6px 10px", fontSize: "0.75rem" }}>
                           <Trash2 size={14} />
+                          <span>Delete</span>
                         </button>
                       </td>
                     </tr>

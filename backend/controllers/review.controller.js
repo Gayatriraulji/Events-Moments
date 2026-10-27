@@ -14,19 +14,19 @@ const createReview = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Rating must be between 1 and 5")
     }
 
-    const review = await Review.create({ name, email, rating, comment })
+    const review = await Review.create({ name, email, rating, comment, status: "approved" })
 
     return res
         .status(201)
-        .json(new ApiResponse(201, review, "Review submitted successfully. It will be visible after approval."))
+        .json(new ApiResponse(201, review, "Review submitted successfully."))
 })
 
 const getApprovedReviews = asyncHandler(async (req, res) => {
-    const reviews = await Review.find({ status: "approved" }).sort({ createdAt: -1 })
+    const reviews = await Review.find({ status: { $ne: "rejected" } }).sort({ createdAt: -1 })
 
     return res
         .status(200)
-        .json(new ApiResponse(200, reviews, "Approved reviews fetched successfully"))
+        .json(new ApiResponse(200, reviews, "Reviews fetched successfully"))
 })
 
 const getAllReviews = asyncHandler(async (req, res) => {
@@ -37,17 +37,20 @@ const getAllReviews = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, reviews, "All reviews fetched successfully"))
 })
 
-const updateReviewStatus = asyncHandler(async (req, res) => {
+const updateReview = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const { status } = req.body
+    const { name, email, rating, comment, status } = req.body
 
-    if (!["pending", "approved", "rejected"].includes(status)) {
-        throw new ApiError(400, "Invalid status value")
-    }
+    const updateFields = {}
+    if (name !== undefined) updateFields.name = name
+    if (email !== undefined) updateFields.email = email
+    if (rating !== undefined) updateFields.rating = rating
+    if (comment !== undefined) updateFields.comment = comment
+    if (status !== undefined) updateFields.status = status
 
     const updatedReview = await Review.findByIdAndUpdate(
         id,
-        { $set: { status } },
+        { $set: updateFields },
         { new: true }
     )
 
@@ -57,7 +60,7 @@ const updateReviewStatus = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponse(200, updatedReview, "Review status updated"))
+        .json(new ApiResponse(200, updatedReview, "Review updated successfully"))
 })
 
 const deleteReview = asyncHandler(async (req, res) => {
@@ -74,4 +77,4 @@ const deleteReview = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Review deleted successfully"))
 })
 
-export { createReview, getApprovedReviews, getAllReviews, updateReviewStatus, deleteReview }
+export { createReview, getApprovedReviews, getAllReviews, updateReview, deleteReview }

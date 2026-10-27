@@ -76,89 +76,6 @@ const defaultFloralPackages = [
   },
 ];
 
-const availableServicesCatalog = [
-  {
-    id: "srv-1",
-    name: "Grand Ceremony Floral Arch",
-    price: 25000,
-    category: "Ceremony & Stage",
-    description: "Cascading bridal archway with white garden roses, hydrangeas, and trailing eucalyptus.",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
-  },
-  {
-    id: "srv-2",
-    name: "Couture Bridal Bouquet & Boutonnières",
-    price: 12000,
-    category: "Bridal Suite",
-    description: "Handcrafted English gardenia and blush peony bouquet wrapped in imported French silk.",
-    image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&q=80",
-  },
-  {
-    id: "srv-3",
-    name: "Aisle Petal Pathway & Glass Lanterns",
-    price: 18000,
-    category: "Ceremony & Stage",
-    description: "Thick ombre rose petal runner bordered by 24 warm candlelit glass hurricane lanterns.",
-    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80",
-  },
-  {
-    id: "srv-4",
-    name: "Luxury Reception Tablescapes (Set of 8)",
-    price: 24000,
-    category: "Dining & Tables",
-    description: "Elevated candelabra floral bowls and botanical low runners with aromatic greenery.",
-    image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=600&q=80",
-  },
-  {
-    id: "srv-5",
-    name: "Enchanted Mandap / Botanical Canopy",
-    price: 45000,
-    category: "Ceremony & Stage",
-    description: "Four-pillar architectural floral pavilion with hanging wisteria and 2,500 fresh stems.",
-    image: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=600&q=80",
-  },
-  {
-    id: "srv-6",
-    name: "Welcome Floral Wall & Photo Moment",
-    price: 20000,
-    category: "Entry & Lounge",
-    description: "8ft x 8ft immersive 3D botanical backdrop with personalized gold calligraphy signage.",
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80",
-  },
-  {
-    id: "srv-7",
-    name: "Cocktail Lounge & Bar Florals",
-    price: 15000,
-    category: "Entry & Lounge",
-    description: "Exotic anthuriums, monstera leaves, and amber glowing tabletop florals for bar and high-tops.",
-    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80",
-  },
-  {
-    id: "srv-8",
-    name: "Suspended Ceiling Chandelier & Lighting",
-    price: 32000,
-    category: "Scenography",
-    description: "Overhead botanical rings draped in fairy string illuminations and trailing foliage.",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600&q=80",
-  },
-  {
-    id: "srv-9",
-    name: "VIP Solarium Table Styling & Menus",
-    price: 16000,
-    category: "Dining & Tables",
-    description: "Velvet runners, brass cutlery stem ties, botanical menu cards, and bespoke votives.",
-    image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80",
-  },
-  {
-    id: "srv-10",
-    name: "Stage Scenography & Uplighting Suite",
-    price: 28000,
-    category: "Scenography",
-    description: "Architectural warm wash lights, floor floral meadows, and dynamic backdrop accents.",
-    image: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?w=600&q=80",
-  },
-];
-
 const API_URL = process.env.REACT_APP_API_URL;
 const SERVER_URL = API_URL ? API_URL.replace("/api/v1", "") : "http://localhost:8000";
 
@@ -181,7 +98,7 @@ const Packages = () => {
   const [customNotes, setCustomNotes] = useState("");
   const [creatingCustom, setCreatingCustom] = useState(false);
   const [serviceCategoryFilter, setServiceCategoryFilter] = useState("All");
-  const [availableServices, setAvailableServices] = useState(availableServicesCatalog);
+  const [availableServices, setAvailableServices] = useState([]);
 
   const fetchPackages = async () => {
     try {
@@ -202,58 +119,31 @@ const Packages = () => {
   useEffect(() => {
     fetchPackages();
 
-    // Fetch dynamic categories and services from database to merge into catalog
-    const fetchDynamicServices = async () => {
+    // Fetch services directly from database services collection
+    const fetchDatabaseServices = async () => {
       try {
-        const [catRes, srvRes] = await Promise.all([
-          fetch(`${API_URL}/categories`).catch(() => null),
-          fetch(`${API_URL}/services`).catch(() => null),
-        ]);
-
-        let itemsToAdd = [];
-
+        const srvRes = await fetch(`${API_URL}/services`).catch(() => null);
         if (srvRes && srvRes.ok) {
           const srvJson = await srvRes.json();
           if (srvJson.data && srvJson.data.length > 0) {
             const mappedServices = srvJson.data.map((srv) => ({
               id: srv._id,
               name: srv.name,
-              price: Number(srv.price) || 15000,
-              category: "Curated Services",
-              description: srv.description || "Curated floral decor service.",
-              image: srv.image ? (srv.image.startsWith("http") ? srv.image : `${SERVER_URL}${srv.image}`) : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
+              price: Number(srv.price) || 0,
+              description: srv.description || "Curated event service.",
+              highlights: srv.highlights || [],
+              image: srv.image
+                ? (srv.image.startsWith("http") ? srv.image : `${SERVER_URL}${srv.image}`)
+                : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
             }));
-            itemsToAdd.push(...mappedServices);
+            setAvailableServices(mappedServices);
           }
-        }
-
-        if (catRes && catRes.ok) {
-          const catJson = await catRes.json();
-          if (catJson.data && catJson.data.length > 0) {
-            const mappedCats = catJson.data.map((cat) => ({
-              id: cat._id,
-              name: cat.name,
-              price: cat.price || 20000,
-              category: "Bespoke Collection",
-              description: cat.description || "Curated floral decor service.",
-              image: cat.image ? (cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`) : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
-            }));
-            itemsToAdd.push(...mappedCats);
-          }
-        }
-
-        if (itemsToAdd.length > 0) {
-          setAvailableServices((prev) => {
-            const existingNames = new Set(prev.map((s) => s.name.toLowerCase()));
-            const newOnes = itemsToAdd.filter((s) => !existingNames.has(s.name.toLowerCase()));
-            return [...prev, ...newOnes];
-          });
         }
       } catch (err) {
-        // use default catalog
+        // use empty services list
       }
     };
-    fetchDynamicServices();
+    fetchDatabaseServices();
   }, [API_URL, SERVER_URL]);
 
   const filteredPackages = packages.filter((pkg) => {
@@ -869,7 +759,7 @@ const Packages = () => {
                 </div>
               </div>
 
-              {/* Service Categories Filter Tabs */}
+              {/* Service Selection Section */}
               <div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", flexWrap: "wrap", gap: "0.8rem" }}>
                   <div>
@@ -881,29 +771,31 @@ const Packages = () => {
                     </p>
                   </div>
 
-                  {/* Category Pills */}
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {categoriesSet.map((cat) => (
-                      <button
-                        key={cat}
-                        type="button"
-                        onClick={() => setServiceCategoryFilter(cat)}
-                        style={{
-                          padding: "5px 12px",
-                          borderRadius: "9999px",
-                          fontSize: "0.72rem",
-                          fontWeight: 600,
-                          border: serviceCategoryFilter === cat ? "1px solid #DFBF80" : "1px solid rgba(255,255,255,0.1)",
-                          background: serviceCategoryFilter === cat ? "#DFBF80" : "rgba(255,255,255,0.04)",
-                          color: serviceCategoryFilter === cat ? "#141E15" : "#B4C2B6",
-                          cursor: "pointer",
-                          transition: "all 0.2s ease",
-                        }}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
+                  {/* Category Pills (only if multiple categories exist) */}
+                  {categoriesSet.length > 2 && (
+                    <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                      {categoriesSet.map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => setServiceCategoryFilter(cat)}
+                          style={{
+                            padding: "5px 12px",
+                            borderRadius: "9999px",
+                            fontSize: "0.72rem",
+                            fontWeight: 600,
+                            border: serviceCategoryFilter === cat ? "1px solid #DFBF80" : "1px solid rgba(255,255,255,0.1)",
+                            background: serviceCategoryFilter === cat ? "#DFBF80" : "rgba(255,255,255,0.04)",
+                            color: serviceCategoryFilter === cat ? "#141E15" : "#B4C2B6",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                          }}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Services Grid */}
@@ -912,57 +804,67 @@ const Packages = () => {
                     display: "grid",
                     gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
                     gap: "1.2rem",
-                    maxHeight: "360px",
+                    maxHeight: "380px",
                     overflowY: "auto",
                     padding: "4px",
                   }}
                 >
-                  {filteredServicesList.map((service) => {
-                    const isSelected = selectedServices.some((s) => s.id === service.id || s.name === service.name);
+                  {filteredServicesList.length === 0 ? (
+                    <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "3rem", color: "#8EA990" }}>
+                      <Sparkles size={28} style={{ color: "#DFBF80", marginBottom: "10px" }} />
+                      <p style={{ fontSize: "0.95rem", margin: 0 }}>No services found in database.</p>
+                      <p style={{ fontSize: "0.8rem", color: "#64748B", marginTop: "4px" }}>Add services from Admin Services Management to include them here.</p>
+                    </div>
+                  ) : (
+                    filteredServicesList.map((service) => {
+                      const isSelected = selectedServices.some((s) => s.id === service.id || s.name === service.name);
 
-                    return (
-                      <div
-                        key={service.id || service.name}
-                        onClick={() => handleToggleService(service)}
-                        style={{
-                          borderRadius: "18px",
-                          background: isSelected ? "rgba(223, 191, 128, 0.12)" : "rgba(255, 255, 255, 0.03)",
-                          border: isSelected ? "1px solid #DFBF80" : "1px solid rgba(255, 255, 255, 0.08)",
-                          padding: "1rem",
-                          cursor: "pointer",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "0.8rem",
-                          transition: "all 0.25s ease",
-                          position: "relative",
-                          boxShadow: isSelected ? "0 6px 20px rgba(197, 160, 89, 0.15)" : "none",
-                        }}
-                      >
-                        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                          <img
-                            src={service.image}
-                            alt={service.name}
-                            style={{
-                              width: "56px",
-                              height: "56px",
-                              borderRadius: "12px",
-                              objectFit: "cover",
-                              flexShrink: 0,
-                            }}
-                          />
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#FAF7F2", lineHeight: 1.3, marginBottom: "2px" }}>
-                              {service.name}
-                            </div>
-                            <div style={{ fontSize: "0.72rem", color: "#8EA990" }}>
-                              {service.category}
+                      return (
+                        <div
+                          key={service.id || service.name}
+                          onClick={() => handleToggleService(service)}
+                          style={{
+                            borderRadius: "18px",
+                            background: isSelected ? "rgba(223, 191, 128, 0.14)" : "rgba(255, 255, 255, 0.03)",
+                            border: isSelected ? "1.5px solid #DFBF80" : "1px solid rgba(255, 255, 255, 0.08)",
+                            padding: "1rem",
+                            cursor: "pointer",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.8rem",
+                            transition: "all 0.25s ease",
+                            position: "relative",
+                            boxShadow: isSelected ? "0 6px 20px rgba(197, 160, 89, 0.18)" : "none",
+                          }}
+                        >
+                          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                            <img
+                              src={service.image}
+                              alt={service.name}
+                              style={{
+                                width: "56px",
+                                height: "56px",
+                                borderRadius: "12px",
+                                objectFit: "cover",
+                                flexShrink: 0,
+                                border: "1px solid rgba(223, 191, 128, 0.25)",
+                              }}
+                            />
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#FAF7F2", lineHeight: 1.3, marginBottom: "3px" }}>
+                                {service.name}
+                              </div>
+                              <div style={{ fontSize: "0.72rem", color: "#DFBF80", fontWeight: 600 }}>
+                                {service.highlights && service.highlights.length > 0
+                                  ? service.highlights.slice(0, 2).join(" • ")
+                                  : "Curated Service"}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <p style={{ fontSize: "0.78rem", color: "#A8BCA9", lineHeight: 1.5, margin: 0, flex: 1 }}>
-                          {service.description}
-                        </p>
+                          <p style={{ fontSize: "0.8rem", color: "#A8BCA9", lineHeight: 1.5, margin: 0, flex: 1 }}>
+                            {service.description || "Tailored event service."}
+                          </p>
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "0.6rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                           <div style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.25rem", fontWeight: 700, color: "#DFBF80" }}>

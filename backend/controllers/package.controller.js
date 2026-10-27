@@ -96,4 +96,41 @@ const deletePackage = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Package deleted successfully"))
 })
 
-export { createPackage, getAllPackages, getPackageById, updatePackage, deletePackage }
+const createCustomPackage = asyncHandler(async (req, res) => {
+    const { name, description, price, tier, inclusions, image } = req.body
+
+    if (!name || name.trim() === "") {
+        throw new ApiError(400, "Event / Package name is required")
+    }
+
+    let inclusionsArray = []
+    if (Array.isArray(inclusions)) {
+        inclusionsArray = inclusions
+    } else if (typeof inclusions === "string") {
+        inclusionsArray = inclusions.split(",").map((item) => item.trim()).filter(Boolean)
+    }
+
+    const defaultImages = [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80",
+        "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=800&q=80",
+        "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&q=80",
+        "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=800&q=80",
+    ]
+    const chosenImage = image || defaultImages[Math.floor(Math.random() * defaultImages.length)]
+
+    const pkg = await Package.create({
+        name: name.trim(),
+        description: description || `Custom bespoke package including ${inclusionsArray.length} selected services.`,
+        price: Number(price) || 0,
+        tier: ["basic", "premium", "luxury"].includes(tier) ? tier : "luxury",
+        inclusions: inclusionsArray,
+        image: chosenImage,
+    })
+
+    return res
+        .status(201)
+        .json(new ApiResponse(201, pkg, "Custom package created successfully"))
+})
+
+export { createPackage, createCustomPackage, getAllPackages, getPackageById, updatePackage, deletePackage }

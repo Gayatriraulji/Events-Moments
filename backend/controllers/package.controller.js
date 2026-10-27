@@ -126,6 +126,7 @@ const createCustomPackage = asyncHandler(async (req, res) => {
         tier: ["basic", "premium", "luxury"].includes(tier) ? tier : "luxury",
         inclusions: inclusionsArray,
         image: chosenImage,
+        isCustom: true,
     })
 
     return res

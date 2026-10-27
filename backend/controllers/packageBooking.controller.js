@@ -156,7 +156,7 @@ const createPackageBooking = asyncHandler(async (req, res) => {
 })
 
 const getAllPackageBookings = asyncHandler(async (req, res) => {
-    const bookings = await PackageBooking.find({}).populate("package", "name price tier image")
+    const bookings = await PackageBooking.find({}).populate("package", "name price tier image inclusions isCustom description")
 
     return res
         .status(200)

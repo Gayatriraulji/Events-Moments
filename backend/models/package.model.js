@@ -27,6 +27,10 @@ const packageSchema = new Schema({
   image: {
     type: String,
   },
+  isCustom: {
+    type: Boolean,
+    default: false,
+  },
 }, {
   timestamps: true,
 });

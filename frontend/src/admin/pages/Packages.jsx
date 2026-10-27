@@ -333,7 +333,28 @@ const AdminPackages = () => {
                             </div>
                           )}
                         </td>
-                        <td style={{ fontWeight: 700, color: "#C5A059" }}>{pkg.name}</td>
+                        <td style={{ fontWeight: 700, color: "#C5A059" }}>
+                          <div>{pkg.name}</div>
+                          {pkg.isCustom && (
+                            <span
+                              style={{
+                                display: "inline-block",
+                                marginTop: "3px",
+                                fontSize: "0.65rem",
+                                fontWeight: 700,
+                                letterSpacing: "0.04em",
+                                textTransform: "uppercase",
+                                background: "rgba(197, 160, 89, 0.16)",
+                                color: "#C5A059",
+                                border: "1px solid rgba(197, 160, 89, 0.35)",
+                                padding: "2px 6px",
+                                borderRadius: "9999px",
+                              }}
+                            >
+                              ✨ Custom Event
+                            </span>
+                          )}
+                        </td>
                         <td>
                           <span className="badge" style={{ background: badge.bg, color: badge.color }}>
                             {pkg.tier}

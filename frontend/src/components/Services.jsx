@@ -235,7 +235,7 @@ const Services = () => {
                 </div>
 
                 <button
-                  onClick={() => navigate("/categories")}
+                  onClick={() => navigate(`/packages?createCustom=true&serviceName=${encodeURIComponent(srv.name)}&serviceId=${srv._id || srv.id || ""}`)}
                   className="aloriga-pill-btn gold"
                   style={{ padding: "10px 22px", fontSize: "0.78rem" }}
                 >

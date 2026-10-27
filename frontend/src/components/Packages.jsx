@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Search, X, Sparkles, CheckCircle, ChevronRight, Star, Plus, Check, ArrowRight, Layers, ShoppingBag } from "lucide-react";
 
 const tierConfig = {
@@ -84,6 +84,7 @@ const Packages = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -99,6 +100,18 @@ const Packages = () => {
   const [creatingCustom, setCreatingCustom] = useState(false);
   const [serviceCategoryFilter, setServiceCategoryFilter] = useState("All");
   const [availableServices, setAvailableServices] = useState([]);
+
+  // Auto-open modal if navigated from Services BOOK SUITE
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("createCustom") === "true") {
+      setCustomModalOpen(true);
+      const sName = params.get("serviceName");
+      if (sName) {
+        setCustomEventName(`Custom ${sName} Suite`);
+      }
+    }
+  }, [location.search]);
 
   const fetchPackages = async () => {
     try {
@@ -137,6 +150,22 @@ const Packages = () => {
                 : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
             }));
             setAvailableServices(mappedServices);
+
+            // If coming from Services BOOK SUITE, pre-select this service automatically
+            const params = new URLSearchParams(window.location.search);
+            const targetId = params.get("serviceId");
+            const targetName = params.get("serviceName");
+            if (targetId || targetName) {
+              const matchedService = mappedServices.find(
+                (s) => (targetId && s.id === targetId) || (targetName && s.name.toLowerCase() === targetName.toLowerCase())
+              );
+              if (matchedService) {
+                setSelectedServices((prev) => {
+                  const already = prev.some((p) => p.id === matchedService.id || p.name === matchedService.name);
+                  return already ? prev : [matchedService, ...prev];
+                });
+              }
+            }
           }
         }
       } catch (err) {

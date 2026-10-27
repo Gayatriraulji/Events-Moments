@@ -94,6 +94,8 @@ const AdminPackageBookings = () => {
   const getExportRows = () =>
     filteredBookings.map((b) => ({
       Package: b.package?.name || "—",
+      Type: b.package?.isCustom ? "Custom Package" : "Standard",
+      "Added / Extra Services": (b.package?.inclusions || []).join(", ") || "—",
       Name: b.name,
       Email: b.email,
       Phone: b.phone,
@@ -118,7 +120,7 @@ const AdminPackageBookings = () => {
     doc.text("Package Bookings Report", 14, 15);
 
     const rows = getExportRows();
-    const columns = ["Package", "Name", "Email", "Phone", "Event Date", "Time", "Guests", "Price", "Status"];
+    const columns = ["Package", "Type", "Added / Extra Services", "Name", "Email", "Phone", "Event Date", "Time", "Guests", "Price", "Status"];
 
     autoTable(doc, {
       startY: 22,
@@ -142,7 +144,7 @@ const AdminPackageBookings = () => {
               Package Bookings
             </h1>
             <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
-              Manage bundle reservations, update status, and export PDF/Excel.
+              Manage bundle reservations, custom client packages, and extra added services.
             </p>
           </div>
 
@@ -182,6 +184,7 @@ const AdminPackageBookings = () => {
               <thead>
                 <tr>
                   <th>Package</th>
+                  <th>Extra / Added Services</th>
                   <th>Client</th>
                   <th>Contact</th>
                   <th>Event Date & Time</th>
@@ -194,7 +197,7 @@ const AdminPackageBookings = () => {
               <tbody>
                 {filteredBookings.length === 0 ? (
                   <tr>
-                    <td colSpan="8" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
+                    <td colSpan="9" style={{ textAlign: "center", padding: "2rem", color: "#64748B" }}>
                       No package bookings found.
                     </td>
                   </tr>
@@ -202,7 +205,63 @@ const AdminPackageBookings = () => {
                   filteredBookings.map((b) => (
                     <tr key={b._id}>
                       <td style={{ fontWeight: 700, color: "#C5A059" }}>
-                        {b.package?.name || "—"}
+                        <div>{b.package?.name || "—"}</div>
+                        {b.package?.isCustom ? (
+                          <span
+                            style={{
+                              display: "inline-block",
+                              marginTop: "4px",
+                              fontSize: "0.68rem",
+                              fontWeight: 700,
+                              letterSpacing: "0.04em",
+                              textTransform: "uppercase",
+                              background: "rgba(197, 160, 89, 0.16)",
+                              color: "#C5A059",
+                              border: "1px solid rgba(197, 160, 89, 0.35)",
+                              padding: "2px 8px",
+                              borderRadius: "9999px",
+                            }}
+                          >
+                            ✨ Custom Package
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              display: "inline-block",
+                              marginTop: "4px",
+                              fontSize: "0.68rem",
+                              color: "#94A3B8",
+                            }}
+                          >
+                            Standard Bundle
+                          </span>
+                        )}
+                      </td>
+                      <td style={{ maxWidth: "260px" }}>
+                        {b.package?.inclusions && b.package.inclusions.length > 0 ? (
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                            {b.package.inclusions.map((item, idx) => (
+                              <span
+                                key={idx}
+                                style={{
+                                  fontSize: "0.72rem",
+                                  fontWeight: 600,
+                                  background: "rgba(255, 255, 255, 0.08)",
+                                  color: "#FAF7F2",
+                                  padding: "3px 8px",
+                                  borderRadius: "6px",
+                                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                                  display: "inline-block",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                + {item}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span style={{ fontSize: "0.75rem", color: "#64748B" }}>None specified</span>
+                        )}
                       </td>
                       <td>
                         <div style={{ fontWeight: 700, color: "#C5A059" }}>{b.name}</div>

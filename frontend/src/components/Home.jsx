@@ -23,15 +23,15 @@ const featuredWorks = [
     id: 1,
     title: "Jessica & Andrew",
     category: "Wedding Floral & Decor Styling",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1000&q=85",
+    image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1000&q=85",
     theme: "Romantic Ivory & English Gardenia",
     description: "Cascading bridal arches, scented garden roses, and candlelit botanical runners.",
   },
   {
     id: 2,
-    title: "The Executive Lounge",
+    title: "The Velvet Solarium",
     category: "Themed Club Nights & Lifestyle Events",
-    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1000&q=85",
+    image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1000&q=85",
     theme: "Emerald Luxe & Velvet Scenography",
     description: "Suspended botanical installations with deep monstera, orchids, and warm amber lighting.",
   },
@@ -39,7 +39,7 @@ const featuredWorks = [
     id: 3,
     title: "Elysian Gala",
     category: "Luxury Botanical Scenography",
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=85",
+    image: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=1000&q=85",
     theme: "Opulent Banquet & Hanging Wisteria",
     description: "Grand ballrooms transformed into an enchanted botanical conservatory with 4,000 blooms.",
   },
@@ -47,9 +47,17 @@ const featuredWorks = [
     id: 4,
     title: "Verdant Opulence",
     category: "Hotel Seasonal Installation",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=1000&q=85",
+    image: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?w=1000&q=85",
     theme: "High-Fashion Editorial Florals",
     description: "Sculptural floral art combining rare anthuriums, dried botanicals, and hand-blown glass.",
+  },
+  {
+    id: 5,
+    title: "Aura of Versailles",
+    category: "Haute Couture Botanical Pavilion",
+    image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1000&q=85",
+    theme: "Blush Peony & French Chinoiserie",
+    description: "Delicate ranunculus, pastel hydrangeas, and trailing jasmine framing sunlit champagne towers.",
   },
 ];
 
@@ -986,14 +994,28 @@ const Home = () => {
               style={{
                 borderRadius: "28px",
                 overflow: "hidden",
-                boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
+                boxShadow: "0 25px 60px rgba(0,0,0,0.18)",
                 aspectRatio: "4/5",
+                border: "1px solid rgba(197, 160, 89, 0.3)",
+                background: "#EBE5D8",
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=85"
-                alt="Jessica and Andrew Wedding"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=95"
+                alt="Jessica and Andrew Wedding Celebration"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                  transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.03)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
               />
             </div>
             {/* Subtle botanical floral stamp */}
@@ -1002,23 +1024,36 @@ const Home = () => {
                 position: "absolute",
                 bottom: "-20px",
                 left: "-20px",
-                background: "#FFFFFF",
+                background: "rgba(255, 255, 255, 0.95)",
+                backdropFilter: "blur(10px)",
                 borderRadius: "18px",
                 padding: "16px 22px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                border: "1px solid #EAE3D5",
+                boxShadow: "0 12px 35px rgba(0,0,0,0.12)",
+                border: "1px solid rgba(197, 160, 89, 0.35)",
                 display: "flex",
                 alignItems: "center",
                 gap: "12px",
               }}
             >
-              <Heart size={24} color="#C5A059" fill="#C5A059" />
+              <div
+                style={{
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "50%",
+                  background: "rgba(197, 160, 89, 0.15)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Heart size={20} color="#C5A059" fill="#C5A059" />
+              </div>
               <div>
-                <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#182219" }}>
-                  Verified Client
+                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#182219", letterSpacing: "0.02em" }}>
+                  Verified Client Commission
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "#748576" }}>
-                  October 2025 Commission
+                <div style={{ fontSize: "0.72rem", color: "#5E7162" }}>
+                  Tuscan Solarium • October 2025
                 </div>
               </div>
             </div>
@@ -1027,125 +1062,254 @@ const Home = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. FOUNDER SPOTLIGHT: "LUNA SAGE" */}
+      {/* 6. FOUNDER SPOTLIGHT: "LUNA SAGE" (COUTURE ATELIER REDESIGN) */}
       {/* ========================================================================= */}
       <section
         style={{
-          padding: "6rem 1.5rem",
-          background: "#F3EFE7",
-          color: "#1E271F",
-          borderTop: "1px solid #E5DFD1",
+          position: "relative",
+          padding: "7rem 1.5rem",
+          background: "linear-gradient(135deg, #111A12 0%, #172418 50%, #0E160F 100%)",
+          color: "#FAF7F2",
+          borderTop: "1px solid rgba(223, 191, 128, 0.2)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          overflow: "hidden",
         }}
       >
+        {/* Subtle Ambient Glow */}
         <div
           style={{
-            maxWidth: "1200px",
+            position: "absolute",
+            top: "-10%",
+            right: "-5%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          style={{
+            maxWidth: "960px",
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: "4rem",
-            alignItems: "center",
+            textAlign: "center",
+            position: "relative",
+            zIndex: 2,
           }}
         >
-          {/* Left: Luna Sage Atelier Portrait */}
-          <div style={{ position: "relative" }}>
-            <div
-              style={{
-                borderRadius: "28px",
-                overflow: "hidden",
-                boxShadow: "0 20px 45px rgba(0,0,0,0.12)",
-                aspectRatio: "3/4",
-                maxHeight: "520px",
-              }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900&q=85"
-                alt="Luna Sage Creative Director"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+          {/* Top Pill Badge */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              background: "rgba(223, 191, 128, 0.12)",
+              border: "1px solid rgba(223, 191, 128, 0.35)",
+              padding: "7px 20px",
+              borderRadius: "9999px",
+              fontSize: "0.74rem",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "#DFBF80",
+              marginBottom: "1.5rem",
+              boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+            }}
+          >
+            <Sparkles size={14} color="#DFBF80" />
+            <span>The Visionary Behind Aloriga • Creative Director & Founder</span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(3.4rem, 6vw, 5.2rem)",
+              fontWeight: 500,
+              color: "#FAF7F2",
+              margin: "0 0 1rem",
+              lineHeight: 1.02,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Luna Sage
+          </h2>
+
+          <div
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(1.35rem, 2.2vw, 1.7rem)",
+              fontStyle: "italic",
+              color: "#DFBF80",
+              marginBottom: "2rem",
+              lineHeight: 1.4,
+              maxWidth: "720px",
+              margin: "0 auto 2rem",
+            }}
+          >
+            “Designing stories in living petals, not just bouquets.”
+          </div>
+
+          <p
+            style={{
+              color: "#C6D4C8",
+              fontSize: "1.06rem",
+              lineHeight: 1.85,
+              maxWidth: "780px",
+              margin: "0 auto 1.2rem",
+            }}
+          >
+            Luna believes true floral artistry is living architecture—poetic, emotional, and transcendent. By blending traditional European couture styling, Japanese Ikebana balance, and cutting-edge AI floral harmony insight, she curates celebrations that feel utterly magical.
+          </p>
+
+          <p
+            style={{
+              color: "#9DB3A0",
+              fontSize: "0.95rem",
+              lineHeight: 1.8,
+              maxWidth: "760px",
+              margin: "0 auto 3rem",
+            }}
+          >
+            From historic châteaux in Provence to high-fashion galas across Tokyo and New York, Luna has shaped unforgettable botanical experiences for royalty, luxury Maisons, and discerning couples worldwide.
+          </p>
+
+          {/* 3 Metric Badges Centered */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: "1.5rem",
+              maxWidth: "820px",
+              margin: "0 auto 3.2rem",
+              padding: "1.8rem 2rem",
+              background: "rgba(255, 255, 255, 0.03)",
+              borderRadius: "24px",
+              border: "1px solid rgba(223, 191, 128, 0.2)",
+              boxShadow: "0 15px 40px rgba(0,0,0,0.25)",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: "2.2rem",
+                  fontWeight: 600,
+                  color: "#DFBF80",
+                }}
+              >
+                14+
+              </div>
+              <div
+                style={{
+                  fontSize: "0.74rem",
+                  color: "#A8BCA9",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  marginTop: "4px",
+                }}
+              >
+                Years Haute Floristry
+              </div>
             </div>
-            {/* Elegant Name Floating Badge */}
-            <div
-              style={{
-                position: "absolute",
-                top: "1.5rem",
-                left: "1.5rem",
-                background: "rgba(255, 255, 255, 0.9)",
-                backdropFilter: "blur(12px)",
-                padding: "8px 18px",
-                borderRadius: "9999px",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                color: "#1E271F",
-                textTransform: "uppercase",
-              }}
-            >
-              Creative Director & Founder
+            <div>
+              <div
+                style={{
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: "2.2rem",
+                  fontWeight: 600,
+                  color: "#DFBF80",
+                }}
+              >
+                650+
+              </div>
+              <div
+                style={{
+                  fontSize: "0.74rem",
+                  color: "#A8BCA9",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  marginTop: "4px",
+                }}
+              >
+                Bespoke Galas & Weddings
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: "2.2rem",
+                  fontWeight: 600,
+                  color: "#DFBF80",
+                }}
+              >
+                4
+              </div>
+              <div
+                style={{
+                  fontSize: "0.74rem",
+                  color: "#A8BCA9",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  marginTop: "4px",
+                }}
+              >
+                Continents Installed
+              </div>
             </div>
           </div>
 
-          {/* Right: Statement & About */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: "clamp(3rem, 6vw, 4.8rem)",
-                fontWeight: 500,
-                color: "#182219",
-                margin: "0 0 1.5rem",
-                lineHeight: 1,
-              }}
-            >
-              Luna Sage
-            </h2>
-
-            <div
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: "1.5rem",
-                fontStyle: "italic",
-                color: "#465947",
-                marginBottom: "1.5rem",
-                lineHeight: 1.4,
-              }}
-            >
-              “Designing stories in petals, not just bouquets.”
-            </div>
-
-            <p style={{ color: "#4A5A4C", fontSize: "1rem", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-              Luna believes every floral piece should tell a story—personal, poetic, and timeless. Combining natural aesthetics and supported by modern tools (including AI-assisted floral curation), she helps clients discover arrangements that feel truly their own.
-            </p>
-
-            <p style={{ color: "#6C7D6E", fontSize: "0.92rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
-              Trained in Paris and Kyoto, Luna has crafted bespoke botanical scenography for international fashion weeks, royal galas, and private celebrations across four continents.
-            </p>
-
+          {/* Action Buttons Centered */}
+          <div
+            style={{
+              display: "flex",
+              gap: "1.2rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
             <button
               onClick={() => navigate("/about")}
+              className="aloriga-pill-btn gold"
               style={{
-                background: "#1E2A20",
+                padding: "15px 36px",
+                fontSize: "0.84rem",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <span>DISCOVER LUNA'S STORY</span>
+              <ArrowRight size={15} />
+            </button>
+
+            <button
+              onClick={() => navigate("/contact")}
+              style={{
+                background: "transparent",
                 color: "#FAF7F2",
-                border: "none",
-                padding: "13px 32px",
+                border: "1px solid rgba(223, 191, 128, 0.35)",
+                padding: "14px 28px",
                 borderRadius: "9999px",
                 fontSize: "0.82rem",
                 fontWeight: 600,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
+                transition: "all 0.25s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#2D3E2F";
-                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.borderColor = "#DFBF80";
+                e.currentTarget.style.color = "#DFBF80";
+                e.currentTarget.style.background = "rgba(223, 191, 128, 0.08)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#1E2A20";
-                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.borderColor = "rgba(223, 191, 128, 0.35)";
+                e.currentTarget.style.color = "#FAF7F2";
+                e.currentTarget.style.background = "transparent";
               }}
             >
-              ABOUT LUNA SAGE
+              Consult With Luna
             </button>
           </div>
         </div>

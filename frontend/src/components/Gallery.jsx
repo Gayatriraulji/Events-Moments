@@ -247,7 +247,8 @@ const Gallery = () => {
             const isHovered = hoveredId === (img._id || i);
             return (
               <div
-                key={img._id || i}
+                key={`${selectedFilter}-${img._id || i}`}
+                className="animate-fade-scale"
                 onClick={() => openLightbox(img, i)}
                 onMouseEnter={() => setHoveredId(img._id || i)}
                 onMouseLeave={() => setHoveredId(null)}
@@ -263,6 +264,7 @@ const Gallery = () => {
                   boxShadow: isHovered ? "0 20px 45px rgba(0,0,0,0.5), 0 0 30px rgba(197,160,89,0.15)" : "0 8px 25px rgba(0,0,0,0.3)",
                   transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                   background: "#1C291D",
+                  animationDelay: `${(i % 10) * 0.06}s`,
                 }}
               >
                 <div style={{ position: "relative", overflow: "hidden" }}>

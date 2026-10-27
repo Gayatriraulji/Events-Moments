@@ -15,6 +15,10 @@ import {
   Calendar,
   Layers,
   Award,
+  Pause,
+  Maximize2,
+  Image as ImageIcon,
+  Eye,
 } from "lucide-react";
 
 // Featured Works Showcase Data (from Aloriga Dribbble Shot)
@@ -97,6 +101,90 @@ const offerings = [
   },
 ];
 
+// Curated Cinematic Showcase Gallery Data (with High-res images & transitions)
+const homeGalleryShowcase = [
+  {
+    id: "g1",
+    title: "The Regal Mandap of Umaid Bhawan",
+    category: "Royal Weddings",
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=85",
+    theme: "Cascading Ivory Orchids & Amber Crystal Chandeliers",
+    description: "4,500 handcrafted English roses, live water lilies, and suspended brass lanterns.",
+    location: "Palace Courtyard",
+    accent: "Masterpiece",
+  },
+  {
+    id: "g2",
+    title: "Elysian Glasshouse Sunset Soirée",
+    category: "Luxury Receptions",
+    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1600&q=85",
+    theme: "Sunlit Glasshouse, Scented Gardenias & Trailing Jasmine",
+    description: "Botanical arches intertwining delicate blush ranunculus and gold leaf tablescapes.",
+    location: "Conservatory Atrium",
+    accent: "Bespoke",
+  },
+  {
+    id: "g3",
+    title: "Midnight Emerald & Velvet Ballroom Gala",
+    category: "Banquets & Galas",
+    image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1600&q=85",
+    theme: "Dramatic Monsteras, Gold Leaf Urns & Velvet Staging",
+    description: "Immersive nocturnal styling featuring candlelit dinner runways and exotic anthuriums.",
+    location: "Grand Ballroom",
+    accent: "Signature",
+  },
+  {
+    id: "g4",
+    title: "Versailles Chinoiserie Champagne Pavilion",
+    category: "Floral Mandaps",
+    image: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=1600&q=85",
+    theme: "Pastel Hydrangeas, White Peonies & Tiered Floral Towers",
+    description: "A dreamlike floral sanctuary with hanging wisteria blossoms and hand-blown teardrop glass.",
+    location: "Lakeside Lawn",
+    accent: "Haute Couture",
+  },
+  {
+    id: "g5",
+    title: "Vogue Autumn Runway Editorial Scenography",
+    category: "Editorial & Runways",
+    image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1600&q=85",
+    theme: "Dried Pampas, Terracotta Florals & High-Fashion Textures",
+    description: "Architectural botanical installation framing high-fashion bridal presentation.",
+    location: "Design Studio",
+    accent: "Editorial",
+  },
+  {
+    id: "g6",
+    title: "Scented White Gardenia Aisle Pathway",
+    category: "Royal Weddings",
+    image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1600&q=85",
+    theme: "White Ranunculus, Delicate Ferns & Scented Pillar Candles",
+    description: "A 40-meter petal carpet framed by lush floral borders and vintage brass lanterns.",
+    location: "Cathedral Lawn",
+    accent: "Romantic",
+  },
+];
+
+// Infinite Marquee Track 1 (Sliding Left)
+const marqueeImagesRow1 = [
+  { id: "m1", title: "Grand Ceremony Arch", tag: "Royal Weddings", img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80", desc: "Ivory garden roses and cascading eucalyptus" },
+  { id: "m2", title: "Floating Velvet Urns", tag: "Luxe Gala", img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80", desc: "Gold leaf pedestals and deep emerald foliage" },
+  { id: "m3", title: "Bespoke Bridal Bouquet", tag: "Atelier", img: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=800&q=80", desc: "White peonies and trailing silk ribbon" },
+  { id: "m4", title: "Amber Candlelit Tablescape", tag: "Private Dinner", img: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80", desc: "Warm amber glassware and terracotta florals" },
+  { id: "m5", title: "Solarium Greenhouse Vows", tag: "Bespoke Vows", img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80", desc: "Sunlit greenhouse adorned with wisteria" },
+  { id: "m6", title: "Runway Botanical Art", tag: "Fashion Editorial", img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&q=80", desc: "Sculptural living runway installation" },
+];
+
+// Infinite Marquee Track 2 (Sliding Right)
+const marqueeImagesRow2 = [
+  { id: "m7", title: "Suspended Wisteria Cloud", tag: "Installations", img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80", desc: "4,000 blossoms hanging from grand ceiling" },
+  { id: "m8", title: "Lobby Botanical Canopy", tag: "Hotel Living Art", img: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=800&q=80", desc: "Anthuriums, orchids, and subtropical palms" },
+  { id: "m9", title: "Romantic Evening Aisle", tag: "Weddings", img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&q=80", desc: "Candlelit petal carpet and warm fairy lights" },
+  { id: "m10", title: "French Chinoiserie Pavilion", tag: "Haute Couture", img: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=800&q=80", desc: "Blush hydrangeas and French porcelain vases" },
+  { id: "m11", title: "Curated Boutonnière Suite", tag: "Floristry", img: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?w=800&q=80", desc: "Micro ranunculus with waxflower accents" },
+  { id: "m12", title: "Champagne Tower Florals", tag: "Celebrations", img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80", desc: "Cascading garden roses framing crystal towers" },
+];
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -129,6 +217,28 @@ const Home = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  // Cinematic Animated Gallery Showcase State
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+  const [galleryIsPlaying, setGalleryIsPlaying] = useState(true);
+  const [galleryFilter, setGalleryFilter] = useState("ALL");
+  const [homeLightbox, setHomeLightbox] = useState(null);
+
+  // Gallery Auto-Transition Timer (every 5 seconds)
+  useEffect(() => {
+    if (!galleryIsPlaying) return;
+    const gTimer = setInterval(() => {
+      setActiveGalleryIndex((prev) => (prev + 1) % homeGalleryShowcase.length);
+    }, 5000);
+    return () => clearInterval(gTimer);
+  }, [galleryIsPlaying]);
+
+  const nextGallerySlide = () => {
+    setActiveGalleryIndex((prev) => (prev + 1) % homeGalleryShowcase.length);
+  };
+  const prevGallerySlide = () => {
+    setActiveGalleryIndex((prev) => (prev - 1 + homeGalleryShowcase.length) % homeGalleryShowcase.length);
+  };
 
   // Featured Work Carousel Slider State
   const [workIndex, setWorkIndex] = useState(0);
@@ -1316,7 +1426,739 @@ const Home = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. ALORIGA LUXURY EDITORIAL FOOTER */}
+      {/* 7. LIVING BOTANICAL GALLERY & MOTION CHRONICLES (ANIMATED SHOWCASE) */}
+      {/* ========================================================================= */}
+      <section
+        style={{
+          position: "relative",
+          padding: "6.5rem 1.5rem 7rem",
+          background: "linear-gradient(180deg, #0B120C 0%, #131F14 40%, #172718 70%, #0B120C 100%)",
+          color: "#FAF7F2",
+          borderTop: "1px solid rgba(223, 191, 128, 0.25)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          overflow: "hidden",
+        }}
+      >
+        {/* Ambient Glow Orbs */}
+        <div
+          style={{
+            position: "absolute",
+            top: "10%",
+            left: "5%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(197, 160, 89, 0.09) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "15%",
+            right: "5%",
+            width: "550px",
+            height: "550px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(95, 119, 97, 0.12) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div style={{ maxWidth: "1360px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+          {/* Section Header */}
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "rgba(223, 191, 128, 0.12)",
+                border: "1px solid rgba(223, 191, 128, 0.35)",
+                padding: "6px 18px",
+                borderRadius: "9999px",
+                fontSize: "0.72rem",
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#DFBF80",
+                marginBottom: "0.8rem",
+              }}
+            >
+              <Sparkles size={13} color="#DFBF80" />
+              <span>Living Visual Archives & Motion</span>
+            </div>
+
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)",
+                fontWeight: 600,
+                color: "#FAF7F2",
+                margin: "0 0 0.8rem",
+                lineHeight: 1.12,
+              }}
+            >
+              Immersive Moments & Botanical Chronicles
+            </h2>
+            <div style={{ width: "60px", height: "1.5px", background: "#C5A059", margin: "0 auto 1.2rem" }} />
+            <p style={{ color: "#B4C2B6", maxWidth: "660px", margin: "0 auto", fontSize: "0.96rem", lineHeight: 1.65 }}>
+              Glide through our handcrafted floral architecture in continuous motion — from regal palace mandaps to sunlit conservatory vows and editorial runways.
+            </p>
+
+            {/* Filter Pills */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "8px",
+                flexWrap: "wrap",
+                marginTop: "2rem",
+              }}
+            >
+              {[
+                { id: "ALL", label: "All Chronicles" },
+                { id: "Royal Weddings", label: "Royal Weddings" },
+                { id: "Luxury Receptions", label: "Luxury Receptions" },
+                { id: "Floral Mandaps", label: "Floral Mandaps" },
+                { id: "Banquets & Galas", label: "Banquets & Galas" },
+                { id: "Editorial & Runways", label: "Editorial & Runways" },
+              ].map((filter) => {
+                const isActive = galleryFilter === filter.id;
+                return (
+                  <button
+                    key={filter.id}
+                    onClick={() => {
+                      setGalleryFilter(filter.id);
+                      if (filter.id !== "ALL") {
+                        const idx = homeGalleryShowcase.findIndex((g) => g.category === filter.id);
+                        if (idx !== -1) setActiveGalleryIndex(idx);
+                      }
+                    }}
+                    style={{
+                      padding: "8px 18px",
+                      borderRadius: "9999px",
+                      fontSize: "0.75rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      transition: "all 0.25s ease",
+                      border: isActive ? "1px solid #DFBF80" : "1px solid rgba(255, 255, 255, 0.1)",
+                      background: isActive ? "rgba(223, 191, 128, 0.22)" : "rgba(255, 255, 255, 0.04)",
+                      color: isActive ? "#DFBF80" : "#B4C2B6",
+                      boxShadow: isActive ? "0 4px 20px rgba(197, 160, 89, 0.25)" : "none",
+                    }}
+                  >
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* MAIN CINEMATIC TRANSITION STAGE */}
+          {(() => {
+            const currentItem = homeGalleryShowcase[activeGalleryIndex];
+            return (
+              <div
+                style={{
+                  background: "#141F15",
+                  borderRadius: "28px",
+                  overflow: "hidden",
+                  border: "1px solid rgba(223, 191, 128, 0.35)",
+                  boxShadow: "0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(197, 160, 89, 0.15)",
+                  marginBottom: "4.5rem",
+                }}
+              >
+                {/* Progress bar timer */}
+                <div style={{ height: "3px", width: "100%", background: "rgba(255, 255, 255, 0.08)", position: "relative", overflow: "hidden" }}>
+                  <div
+                    key={activeGalleryIndex}
+                    style={{
+                      height: "100%",
+                      background: "linear-gradient(90deg, #C5A059, #DFBF80)",
+                      width: galleryIsPlaying ? "100%" : "0%",
+                      transition: galleryIsPlaying ? "width 5s linear" : "none",
+                    }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                    minHeight: "500px",
+                  }}
+                >
+                  {/* Left: Animated Photo Frame with Ken-Burns Transition */}
+                  <div
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                      minHeight: "420px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setHomeLightbox(currentItem)}
+                  >
+                    <img
+                      key={currentItem.id}
+                      src={currentItem.image}
+                      alt={currentItem.title}
+                      className="ken-burns-active"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        transition: "opacity 0.7s ease, transform 12s ease",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(14, 22, 15, 0.85) 0%, rgba(14, 22, 15, 0.2) 60%, transparent 100%)",
+                      }}
+                    />
+
+                    {/* Top Bar Controls Inside Photo */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "1.2rem",
+                        left: "1.2rem",
+                        right: "1.2rem",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        zIndex: 3,
+                      }}
+                    >
+                      <span
+                        style={{
+                          background: "rgba(14, 22, 15, 0.75)",
+                          backdropFilter: "blur(12px)",
+                          border: "1px solid rgba(223, 191, 128, 0.4)",
+                          color: "#DFBF80",
+                          fontSize: "0.72rem",
+                          fontWeight: 700,
+                          padding: "5px 14px",
+                          borderRadius: "9999px",
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {currentItem.accent} • {currentItem.location}
+                      </span>
+
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setGalleryIsPlaying(!galleryIsPlaying);
+                          }}
+                          style={{
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "50%",
+                            background: "rgba(14, 22, 15, 0.75)",
+                            backdropFilter: "blur(10px)",
+                            border: "1px solid rgba(255, 255, 255, 0.2)",
+                            color: "#FAF7F2",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                          }}
+                          title={galleryIsPlaying ? "Pause Transition" : "Play Transition"}
+                        >
+                          {galleryIsPlaying ? <Pause size={14} /> : <Play size={14} fill="#FAF7F2" />}
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setHomeLightbox(currentItem);
+                          }}
+                          style={{
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "50%",
+                            background: "rgba(14, 22, 15, 0.75)",
+                            backdropFilter: "blur(10px)",
+                            border: "1px solid rgba(255, 255, 255, 0.2)",
+                            color: "#FAF7F2",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                          }}
+                          title="Fullscreen Lightbox"
+                        >
+                          <Maximize2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Bottom Indicator on Mobile */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "1.2rem",
+                        left: "1.2rem",
+                        zIndex: 3,
+                        color: "#DFBF80",
+                        fontSize: "0.74rem",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <Eye size={14} />
+                      <span>Click photo to expand high-res</span>
+                    </div>
+                  </div>
+
+                  {/* Right: Details & Interactive Thumbnail Palette */}
+                  <div
+                    style={{
+                      padding: "2.5rem",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      background: "rgba(22, 33, 23, 0.95)",
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "0.74rem",
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                          color: "#DFBF80",
+                          fontWeight: 700,
+                          marginBottom: "0.5rem",
+                        }}
+                      >
+                        {currentItem.category}
+                      </div>
+
+                      <h3
+                        style={{
+                          fontFamily: "'Cormorant Garamond', Georgia, serif",
+                          fontSize: "clamp(1.9rem, 3vw, 2.5rem)",
+                          fontWeight: 600,
+                          color: "#FAF7F2",
+                          margin: "0 0 0.8rem",
+                          lineHeight: 1.15,
+                        }}
+                      >
+                        {currentItem.title}
+                      </h3>
+
+                      <div
+                        style={{
+                          fontSize: "0.85rem",
+                          color: "#DFBF80",
+                          fontWeight: 600,
+                          marginBottom: "1rem",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
+                      >
+                        <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#C5A059" }} />
+                        <span>Theme: {currentItem.theme}</span>
+                      </div>
+
+                      <p
+                        style={{
+                          color: "#B4C2B6",
+                          fontSize: "0.92rem",
+                          lineHeight: 1.65,
+                          marginBottom: "1.5rem",
+                        }}
+                      >
+                        {currentItem.description}
+                      </p>
+
+                      {/* Navigation Chevrons & Slide Counter */}
+                      <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "2rem" }}>
+                        <button
+                          onClick={prevGallerySlide}
+                          style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "50%",
+                            background: "rgba(255, 255, 255, 0.05)",
+                            border: "1px solid rgba(223, 191, 128, 0.3)",
+                            color: "#FAF7F2",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "#2D3F2E";
+                            e.currentTarget.style.borderColor = "#DFBF80";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                            e.currentTarget.style.borderColor = "rgba(223, 191, 128, 0.3)";
+                          }}
+                        >
+                          <ChevronLeft size={18} />
+                        </button>
+
+                        <span style={{ fontSize: "0.85rem", color: "#DFBF80", fontWeight: 700, letterSpacing: "0.1em" }}>
+                          0{activeGalleryIndex + 1} / 0{homeGalleryShowcase.length}
+                        </span>
+
+                        <button
+                          onClick={nextGallerySlide}
+                          style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "50%",
+                            background: "rgba(255, 255, 255, 0.05)",
+                            border: "1px solid rgba(223, 191, 128, 0.3)",
+                            color: "#FAF7F2",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "#2D3F2E";
+                            e.currentTarget.style.borderColor = "#DFBF80";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                            e.currentTarget.style.borderColor = "rgba(223, 191, 128, 0.3)";
+                          }}
+                        >
+                          <ChevronRight size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Interactive Thumbnail Selector Track */}
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "0.72rem",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.12em",
+                          color: "#8EA990",
+                          fontWeight: 600,
+                          marginBottom: "8px",
+                        }}
+                      >
+                        Select Story to Transition:
+                      </div>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(6, 1fr)",
+                          gap: "8px",
+                        }}
+                      >
+                        {homeGalleryShowcase.map((g, idx) => {
+                          const isCur = idx === activeGalleryIndex;
+                          return (
+                            <div
+                              key={g.id}
+                              onClick={() => setActiveGalleryIndex(idx)}
+                              style={{
+                                height: "54px",
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                                cursor: "pointer",
+                                border: isCur ? "2px solid #DFBF80" : "1px solid rgba(255, 255, 255, 0.15)",
+                                opacity: isCur ? 1 : 0.55,
+                                transform: isCur ? "scale(1.05)" : "scale(1)",
+                                transition: "all 0.25s ease",
+                                boxShadow: isCur ? "0 4px 15px rgba(197, 160, 89, 0.35)" : "none",
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isCur) e.currentTarget.style.opacity = "0.9";
+                              }}
+                              onMouseLeave={(e) => {
+                                if (!isCur) e.currentTarget.style.opacity = "0.55";
+                              }}
+                            >
+                              <img
+                                src={g.image}
+                                alt={g.title}
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* DUAL CONTINUOUS MOVING MARQUEE RIBBON */}
+          <div style={{ marginBottom: "3.5rem" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "1.2rem",
+                flexWrap: "wrap",
+                gap: "10px",
+              }}
+            >
+              <div>
+                <span
+                  style={{
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#DFBF80",
+                    fontWeight: 700,
+                  }}
+                >
+                  Continuous Atelier Stream
+                </span>
+                <h4
+                  style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontSize: "1.5rem",
+                    color: "#FAF7F2",
+                    margin: "2px 0 0",
+                  }}
+                >
+                  Live Visual Flow (Hover to Pause & Zoom)
+                </h4>
+              </div>
+
+              <span style={{ fontSize: "0.78rem", color: "#8EA990" }}>
+                Hover any card to inspect botanical details
+              </span>
+            </div>
+
+            {/* Track 1: Gliding Left */}
+            <div
+              className="gallery-marquee-track"
+              style={{
+                overflow: "hidden",
+                maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                marginBottom: "1.2rem",
+              }}
+            >
+              <div className="gallery-marquee-left" style={{ gap: "1.2rem" }}>
+                {[...marqueeImagesRow1, ...marqueeImagesRow1].map((item, index) => (
+                  <div
+                    key={`row1-${index}`}
+                    onClick={() => setHomeLightbox(item)}
+                    style={{
+                      width: "280px",
+                      height: "190px",
+                      borderRadius: "18px",
+                      overflow: "hidden",
+                      position: "relative",
+                      flexShrink: 0,
+                      cursor: "pointer",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      background: "#182419",
+                      transition: "transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.04) translateY(-4px)";
+                      e.currentTarget.style.borderColor = "#DFBF80";
+                      e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(197, 160, 89, 0.25)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1) translateY(0)";
+                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(14, 22, 15, 0.9) 0%, transparent 70%)",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "12px",
+                        left: "14px",
+                        right: "14px",
+                        zIndex: 2,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "0.64rem",
+                          color: "#DFBF80",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.08em",
+                          fontWeight: 700,
+                        }}
+                      >
+                        {item.tag}
+                      </span>
+                      <div
+                        style={{
+                          fontSize: "0.88rem",
+                          fontWeight: 700,
+                          color: "#FAF7F2",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {item.title}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Track 2: Gliding Right */}
+            <div
+              className="gallery-marquee-track"
+              style={{
+                overflow: "hidden",
+                maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+                WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+              }}
+            >
+              <div className="gallery-marquee-right" style={{ gap: "1.2rem" }}>
+                {[...marqueeImagesRow2, ...marqueeImagesRow2].map((item, index) => (
+                  <div
+                    key={`row2-${index}`}
+                    onClick={() => setHomeLightbox(item)}
+                    style={{
+                      width: "280px",
+                      height: "190px",
+                      borderRadius: "18px",
+                      overflow: "hidden",
+                      position: "relative",
+                      flexShrink: 0,
+                      cursor: "pointer",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                      background: "#182419",
+                      transition: "transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.04) translateY(-4px)";
+                      e.currentTarget.style.borderColor = "#DFBF80";
+                      e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(197, 160, 89, 0.25)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1) translateY(0)";
+                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background: "linear-gradient(to top, rgba(14, 22, 15, 0.9) 0%, transparent 70%)",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "12px",
+                        left: "14px",
+                        right: "14px",
+                        zIndex: 2,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "0.64rem",
+                          color: "#DFBF80",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.08em",
+                          fontWeight: 700,
+                        }}
+                      >
+                        {item.tag}
+                      </span>
+                      <div
+                        style={{
+                          fontSize: "0.88rem",
+                          fontWeight: 700,
+                          color: "#FAF7F2",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {item.title}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Action Callout Bar */}
+          <div
+            style={{
+              textAlign: "center",
+              background: "rgba(223, 191, 128, 0.05)",
+              border: "1px solid rgba(223, 191, 128, 0.25)",
+              borderRadius: "20px",
+              padding: "2rem",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "1.5rem",
+            }}
+          >
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: "1.2rem", fontFamily: "'Cormorant Garamond', Georgia, serif", color: "#FAF7F2", fontWeight: 700 }}>
+                Looking for a specific theme or floral installation?
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "#A8BCA9", marginTop: "3px" }}>
+                Browse our complete full-screen visual library with over 50+ bespoke wedding and gala designs.
+              </div>
+            </div>
+
+            <button
+              onClick={() => navigate("/gallery")}
+              className="aloriga-pill-btn gold"
+              style={{ padding: "14px 30px", fontSize: "0.82rem" }}
+            >
+              <span>EXPLORE FULL GALLERY</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 8. ALORIGA LUXURY EDITORIAL FOOTER */}
       {/* ========================================================================= */}
       <footer
         style={{
@@ -1764,7 +2606,80 @@ const Home = () => {
         </div>
       )}
 
+      {/* Home Gallery Lightbox Modal */}
+      {homeLightbox && (
+        <div
+          onClick={() => setHomeLightbox(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(8, 14, 9, 0.94)",
+            backdropFilter: "blur(20px)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "2rem",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "920px",
+              width: "100%",
+              background: "#162317",
+              borderRadius: "24px",
+              overflow: "hidden",
+              border: "1px solid rgba(223, 191, 128, 0.4)",
+              boxShadow: "0 25px 60px rgba(0, 0, 0, 0.8)",
+              position: "relative",
+              animation: "fadeInScaleUp 0.3s ease",
+            }}
+          >
+            <button
+              onClick={() => setHomeLightbox(null)}
+              style={{
+                position: "absolute",
+                top: "16px",
+                right: "16px",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                background: "rgba(0, 0, 0, 0.6)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                color: "#FAF7F2",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                zIndex: 10,
+              }}
+            >
+              <X size={18} />
+            </button>
 
+            <div style={{ maxHeight: "68vh", overflow: "hidden", background: "#0D160E" }}>
+              <img
+                src={homeLightbox.image || homeLightbox.img}
+                alt={homeLightbox.title}
+                style={{ width: "100%", height: "100%", maxHeight: "68vh", objectFit: "contain", display: "block", margin: "0 auto" }}
+              />
+            </div>
+
+            <div style={{ padding: "1.6rem 2rem", background: "#162317" }}>
+              <span style={{ fontSize: "0.72rem", color: "#DFBF80", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>
+                {homeLightbox.category || homeLightbox.tag || "Bespoke Installation"}
+              </span>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.6rem", color: "#FAF7F2", margin: "4px 0 8px" }}>
+                {homeLightbox.title}
+              </h3>
+              <p style={{ color: "#A8BCA9", fontSize: "0.88rem", lineHeight: 1.5, margin: 0 }}>
+                {homeLightbox.description || homeLightbox.desc || "Curated botanical commission handcrafted for bespoke celebrations."}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

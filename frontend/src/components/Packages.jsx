@@ -900,7 +900,8 @@ const Packages = () => {
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                )}
                 </div>
               </div>
 

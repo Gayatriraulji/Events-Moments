@@ -182,20 +182,20 @@ const AdminServices = () => {
           </h3>
 
           <form onSubmit={handleSubmit}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "14px", marginBottom: "14px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px", marginBottom: "16px" }}>
               <div>
-                <label className="form-label">Service Name *</label>
+                <label className="form-label" style={{ fontWeight: 600, color: "#C5A059" }}>Service Name *</label>
                 <input name="name" value={formData.name} onChange={handleChange} required placeholder="Luxury Catering" className="form-input" />
               </div>
               <div>
-                <label className="form-label">Price (₹) *</label>
+                <label className="form-label" style={{ fontWeight: 600, color: "#C5A059" }}>Price (₹) *</label>
                 <input name="price" type="number" min="0" value={formData.price} onChange={handleChange} required placeholder="e.g. 25000" className="form-input" />
               </div>
               <div>
                 <label className="form-label">Description</label>
                 <input name="description" value={formData.description} onChange={handleChange} placeholder="Brief overview of the service..." className="form-input" />
               </div>
-              <div style={{ gridColumn: "span 2" }}>
+              <div>
                 <label className="form-label">Highlights (comma separated)</label>
                 <input name="highlights" value={formData.highlights} onChange={handleChange} placeholder="Custom Menus, Live Cooking, Beverage Bar" className="form-input" />
               </div>

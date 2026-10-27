@@ -16,13 +16,23 @@ import serviceRouter from "./routes/service.routes.js";
 
 const app = express();
 
-const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:3000")
+const defaultOrigins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "https://events-moments-1.onrender.com",
+];
+
+const envOrigins = (process.env.CORS_ORIGIN || "")
     .split(",")
-    .map(o => o.trim());
+    .map(o => o.trim())
+    .filter(Boolean);
+
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin) || origin.startsWith("http://localhost:") || origin.startsWith("http://127.0.0.1:")) {
             callback(null, true);
         } else {
             callback(new Error("Not allowed by CORS"));

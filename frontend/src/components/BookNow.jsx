@@ -89,7 +89,7 @@ const BookNow = () => {
   const [endMinute, setEndMinute] = useState("");
   const [endAmpm, setEndAmpm] = useState("AM");
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
   const SERVER_URL = API_URL ? API_URL.replace("/api/v1", "") : "http://localhost:8000";
 
   useEffect(() => {
@@ -400,6 +400,10 @@ const BookNow = () => {
                 <img
                   src={category.image.startsWith("http") ? category.image : `${SERVER_URL}${category.image}`}
                   alt={category.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80";
+                  }}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(20,30,21,0.85) 0%, transparent 60%)" }} />

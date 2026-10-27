@@ -32,7 +32,9 @@ const createPackage = asyncHandler(async (req, res) => {
 })
 
 const getAllPackages = asyncHandler(async (req, res) => {
-    const packages = await Package.find({})
+    const { includeCustom } = req.query
+    const filter = includeCustom === "true" ? {} : { isCustom: { $ne: true } }
+    const packages = await Package.find(filter).sort({ createdAt: -1 })
 
     return res
         .status(200)

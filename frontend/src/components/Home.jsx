@@ -4,7 +4,6 @@ import {
   Sparkles,
   ArrowRight,
   Star,
-  Play,
   ChevronLeft,
   ChevronRight,
   Heart,
@@ -382,42 +381,6 @@ const Home = () => {
                 </span>
               </div>
 
-              {/* Play / Story Preview Button */}
-              <button
-                onClick={() => navigate("/gallery")}
-                title="View Gallery Reel"
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "64px",
-                  height: "64px",
-                  borderRadius: "50%",
-                  background: "rgba(20, 30, 21, 0.85)",
-                  border: "1px solid rgba(197, 160, 89, 0.6)",
-                  color: "#DFBF80",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  backdropFilter: "blur(10px)",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translate(-50%, -50%) scale(1.1)";
-                  e.currentTarget.style.borderColor = "#E2C485";
-                  e.currentTarget.style.background = "#2D3E2E";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translate(-50%, -50%) scale(1)";
-                  e.currentTarget.style.borderColor = "rgba(197, 160, 89, 0.6)";
-                  e.currentTarget.style.background = "rgba(20, 30, 21, 0.85)";
-                }}
-              >
-                <Play size={24} fill="#DFBF80" style={{ marginLeft: "3px" }} />
-              </button>
 
               {/* Bottom Card Title Details */}
               <div style={{ position: "absolute", bottom: "1.8rem", left: "2rem", right: "2rem" }}>

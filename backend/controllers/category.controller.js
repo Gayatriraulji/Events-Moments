@@ -4,13 +4,13 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Category } from "../models/category.model.js";
 
 const createCategory = asyncHandler(async (req, res) => {
-    const { name, description, price } = req.body
+    const { name, description, price, image } = req.body
 
     if (!name || name.trim() === "") {
         throw new ApiError(400, "Category name is required")
     }
 
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : ""
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : (image || "")
 
     const category = await Category.create({
         name,
@@ -25,7 +25,7 @@ const createCategory = asyncHandler(async (req, res) => {
 })
 
 const getAllCategories = asyncHandler(async (req, res) => {
-    const categories = await Category.find({})
+    const categories = await Category.find({}).sort({ createdAt: -1 })
 
     return res
         .status(200)
@@ -48,12 +48,14 @@ const getCategoryById = asyncHandler(async (req, res) => {
 
 const updateCategory = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const { name, description, price } = req.body
+    const { name, description, price, image } = req.body
 
     const updateData = { name, description, price }
 
     if (req.file) {
         updateData.image = `/uploads/${req.file.filename}`
+    } else if (image !== undefined && image !== "") {
+        updateData.image = image
     }
 
     const updatedCategory = await Category.findByIdAndUpdate(

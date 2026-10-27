@@ -22,14 +22,16 @@ const AdminPackages = () => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
+  const [tabFilter, setTabFilter] = useState("all"); // "all", "standard", "custom"
+
   const token = localStorage.getItem("accessToken");
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
   const SERVER_URL = API_URL ? API_URL.replace("/api/v1", "") : "http://localhost:8000";
 
   const fetchPackages = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/packages`);
+      const res = await fetch(`${API_URL}/packages?includeCustom=true`);
       const response = await res.json();
       if (!res.ok) {
         setErrorMsg(response.message || "Failed to fetch packages");
@@ -149,10 +151,18 @@ const AdminPackages = () => {
     }
   };
 
-  const filteredPackages = packages.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.tier.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPackages = packages.filter((p) => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.tier.toLowerCase().includes(searchTerm.toLowerCase());
+    if (!matchesSearch) return false;
+    if (tabFilter === "standard") return !p.isCustom;
+    if (tabFilter === "custom") return !!p.isCustom;
+    return true;
+  });
+
+  const customCount = packages.filter((p) => p.isCustom).length;
+  const standardCount = packages.filter((p) => !p.isCustom).length;
 
   const tierColor = formData.tier === "luxury" ? "#D97706" : formData.tier === "premium" ? "#C5A059" : "#475569";
   const tierBg = formData.tier === "luxury" ? "#FEF3C7" : formData.tier === "premium" ? "rgba(197,160,89,0.12)" : "#F1F5F9";
@@ -167,20 +177,77 @@ const AdminPackages = () => {
               Package Management
             </h1>
             <p style={{ fontSize: "0.875rem", color: "#E2E8F0" }}>
-              Configure event package bundles, inclusions, and tier pricing.
+              Configure event package bundles, view custom user requests, and set pricing.
             </p>
           </div>
 
-          <div style={{ position: "relative", minWidth: "260px" }}>
-            <Search size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }} />
-            <input
-              type="text"
-              placeholder="Filter packages..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input"
-              style={{ paddingLeft: "38px", borderRadius: "9999px" }}
-            />
+          <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+            {/* Filter Tabs */}
+            <div style={{ display: "flex", background: "rgba(255,255,255,0.06)", padding: "4px", borderRadius: "10px", gap: "4px" }}>
+              <button
+                type="button"
+                onClick={() => setTabFilter("all")}
+                style={{
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "6px 12px",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  background: tabFilter === "all" ? "#C5A059" : "transparent",
+                  color: tabFilter === "all" ? "#141E15" : "#CBD5E1",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                All ({packages.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setTabFilter("standard")}
+                style={{
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "6px 12px",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  background: tabFilter === "standard" ? "#C5A059" : "transparent",
+                  color: tabFilter === "standard" ? "#141E15" : "#CBD5E1",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                Standard ({standardCount})
+              </button>
+              <button
+                type="button"
+                onClick={() => setTabFilter("custom")}
+                style={{
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "6px 12px",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  background: tabFilter === "custom" ? "#C5A059" : "transparent",
+                  color: tabFilter === "custom" ? "#141E15" : "#CBD5E1",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                ✨ Custom Requests ({customCount})
+              </button>
+            </div>
+
+            <div style={{ position: "relative", minWidth: "220px" }}>
+              <Search size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#94A3B8" }} />
+              <input
+                type="text"
+                placeholder="Filter packages..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-input"
+                style={{ paddingLeft: "38px", borderRadius: "9999px" }}
+              />
+            </div>
           </div>
         </div>
 

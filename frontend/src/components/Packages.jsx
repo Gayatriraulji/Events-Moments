@@ -175,15 +175,17 @@ const Packages = () => {
     fetchDatabaseServices();
   }, [API_URL, SERVER_URL]);
 
-  const filteredPackages = packages.filter((pkg) => {
-    const matchesSearch =
-      pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (pkg.description || "").toLowerCase().includes(searchTerm.toLowerCase());
-    const price = pkg.price || 0;
-    const matchesMin = minPrice === "" || price >= Number(minPrice);
-    const matchesMax = maxPrice === "" || price <= Number(maxPrice);
-    return matchesSearch && matchesMin && matchesMax;
-  });
+  const filteredPackages = packages
+    .filter((pkg) => !pkg.isCustom)
+    .filter((pkg) => {
+      const matchesSearch =
+        pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (pkg.description || "").toLowerCase().includes(searchTerm.toLowerCase());
+      const price = pkg.price || 0;
+      const matchesMin = minPrice === "" || price >= Number(minPrice);
+      const matchesMax = maxPrice === "" || price <= Number(maxPrice);
+      return matchesSearch && matchesMin && matchesMax;
+    });
 
   // Calculate Total Price of Selected Services
   const customTotalPrice = selectedServices.reduce((sum, s) => sum + (Number(s.price) || 0), 0);
@@ -233,7 +235,6 @@ const Packages = () => {
 
       if (res.ok && response.data) {
         const createdPkg = response.data;
-        setPackages((prev) => [createdPkg, ...prev]);
         setCustomModalOpen(false);
         setCustomEventName("");
         setSelectedServices([]);
@@ -247,7 +248,6 @@ const Packages = () => {
           ...payload,
           features: inclusionsList,
         };
-        setPackages((prev) => [localPkg, ...prev]);
         setCustomModalOpen(false);
         navigate(`/packages/${localPkg._id}`);
       }
@@ -263,7 +263,6 @@ const Packages = () => {
         features: inclusionsList,
         image: selectedServices[0]?.image || "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
       };
-      setPackages((prev) => [localPkg, ...prev]);
       setCustomModalOpen(false);
       navigate(`/packages/${localPkg._id}`);
     } finally {

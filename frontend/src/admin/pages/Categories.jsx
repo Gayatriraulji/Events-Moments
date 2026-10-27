@@ -8,7 +8,7 @@ const AdminCategories = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [formData, setFormData] = useState({ name: "", description: "", price: "" });
+  const [formData, setFormData] = useState({ name: "", description: "", price: "", imageUrl: "" });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -17,7 +17,7 @@ const AdminCategories = () => {
   const fileInputRef = useRef(null);
 
   const token = localStorage.getItem("accessToken");
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
   const SERVER_URL = API_URL ? API_URL.replace("/api/v1", "") : "http://localhost:8000";
 
   const fetchCategories = async () => {
@@ -43,11 +43,16 @@ const AdminCategories = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "imageUrl" && e.target.value) {
+      setImagePreview(e.target.value);
+      setImageFile(null);
+    }
   };
 
   const handleFileSelect = (file) => {
     if (file && file.type.startsWith("image/")) {
       setImageFile(file);
+      setFormData((prev) => ({ ...prev, imageUrl: "" }));
       const reader = new FileReader();
       reader.onload = (e) => setImagePreview(e.target.result);
       reader.readAsDataURL(file);
@@ -72,7 +77,7 @@ const AdminCategories = () => {
   const handleDragLeave = () => setIsDragging(false);
 
   const resetForm = () => {
-    setFormData({ name: "", description: "", price: "" });
+    setFormData({ name: "", description: "", price: "", imageUrl: "" });
     setImageFile(null);
     setImagePreview(null);
     setEditingId(null);
@@ -93,6 +98,8 @@ const AdminCategories = () => {
       data.append("price", formData.price);
       if (imageFile) {
         data.append("image", imageFile);
+      } else if (formData.imageUrl && formData.imageUrl.trim() !== "") {
+        data.append("image", formData.imageUrl.trim());
       }
 
       const res = await fetch(url, {
@@ -115,7 +122,12 @@ const AdminCategories = () => {
   };
 
   const handleEdit = (cat) => {
-    setFormData({ name: cat.name, description: cat.description || "", price: cat.price || "" });
+    setFormData({
+      name: cat.name,
+      description: cat.description || "",
+      price: cat.price || "",
+      imageUrl: cat.image && cat.image.startsWith("http") ? cat.image : "",
+    });
     setImageFile(null);
     setImagePreview(cat.image ? (cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`) : null);
     setEditingId(cat._id);
@@ -193,9 +205,9 @@ const AdminCategories = () => {
               </div>
             </div>
 
-            {/* Drag & Drop Image Upload */}
-            <div style={{ marginBottom: "1rem" }}>
-              <label className="form-label">Category Image</label>
+            {/* Image Upload or URL */}
+            <div style={{ marginBottom: "1.25rem" }}>
+              <label className="form-label">Category Image (Upload File OR Paste Image Link)</label>
               <div
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
@@ -204,8 +216,8 @@ const AdminCategories = () => {
                 style={{
                   border: `2px dashed ${isDragging ? "#C5A059" : "#CBD5E1"}`,
                   borderRadius: "14px",
-                  background: isDragging ? "#c5a059" : "#F8FAFC",
-                  padding: "1.5rem",
+                  background: isDragging ? "rgba(197,160,89,0.12)" : "#F8FAFC",
+                  padding: "1.25rem",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   display: "flex",
@@ -218,14 +230,18 @@ const AdminCategories = () => {
                     <img
                       src={imagePreview}
                       alt="Preview"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80";
+                      }}
                       style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px", border: "2px solid #E2E8F0", flexShrink: 0 }}
                     />
                     <div>
                       <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#0F172A" }}>Image selected ✓</p>
-                      <p style={{ fontSize: "0.75rem", color: "#64748B" }}>Click or drop to replace</p>
+                      <p style={{ fontSize: "0.75rem", color: "#64748B" }}>Click or drop to replace file</p>
                       <button
                         type="button"
-                        onClick={(e) => { e.stopPropagation(); setImageFile(null); setImagePreview(null); }}
+                        onClick={(e) => { e.stopPropagation(); setImageFile(null); setImagePreview(null); setFormData((p) => ({ ...p, imageUrl: "" })); }}
                         style={{ marginTop: "6px", fontSize: "0.7rem", color: "#F43F5E", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}
                       >
                         ✕ Remove image
@@ -238,12 +254,25 @@ const AdminCategories = () => {
                       <UploadCloud size={26} />
                     </div>
                     <div>
-                      <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#0F172A" }}>Drop image here or click to browse</p>
-                      <p style={{ fontSize: "0.75rem", color: "#94A3B8" }}>PNG, JPG, WEBP up to 5MB</p>
+                      <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "#0F172A" }}>Drop image here or click to browse file</p>
+                      <p style={{ fontSize: "0.75rem", color: "#94A3B8" }}>PNG, JPG, JFIF, WEBP up to 10MB</p>
                     </div>
                   </>
                 )}
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+              </div>
+
+              {/* Alternative: Direct Image URL */}
+              <div style={{ marginTop: "10px" }}>
+                <input
+                  type="text"
+                  name="imageUrl"
+                  value={formData.imageUrl || ""}
+                  onChange={handleChange}
+                  placeholder="Or paste direct image web URL (https://...)"
+                  className="form-input"
+                  style={{ fontSize: "0.85rem" }}
+                />
               </div>
             </div>
 
@@ -297,6 +326,10 @@ const AdminCategories = () => {
                           <img
                             src={cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`}
                             alt={cat.name}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80";
+                            }}
                             style={{ width: "90px", height: "50px", objectFit: "cover", borderRadius: "10px", border: "2px solid #F1F5F9" }}
                           />
                         ) : (

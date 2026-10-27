@@ -47,7 +47,7 @@ const defaultFloralCategories = [
   },
 ];
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
 const SERVER_URL = API_URL ? API_URL.replace("/api/v1", "") : "http://localhost:8000";
 
 const Categories = () => {
@@ -271,6 +271,10 @@ const Categories = () => {
                 <img
                   src={imgSrc}
                   alt={cat.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80";
+                  }}
                   style={{
                     position: "absolute",
                     inset: 0,

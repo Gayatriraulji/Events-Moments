@@ -10,6 +10,11 @@ const serviceSchema = new Schema({
     type: String,
     trim: true,
   },
+  price: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   highlights: {
     type: [String], // e.g. ["Custom Menus", "Live Cooking", "Beverage Bar"]
     default: [],

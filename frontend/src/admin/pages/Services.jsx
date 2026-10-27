@@ -8,7 +8,7 @@ const AdminServices = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [formData, setFormData] = useState({ name: "", description: "", highlights: "" });
+  const [formData, setFormData] = useState({ name: "", description: "", price: "", highlights: "" });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -73,7 +73,7 @@ const AdminServices = () => {
   const handleDragLeave = () => setIsDragging(false);
 
   const resetForm = () => {
-    setFormData({ name: "", description: "", highlights: "" });
+    setFormData({ name: "", description: "", price: "", highlights: "" });
     setImageFile(null);
     setImagePreview(null);
     setEditingId(null);
@@ -89,6 +89,7 @@ const AdminServices = () => {
       const data = new FormData();
       data.append("name", formData.name);
       data.append("description", formData.description);
+      data.append("price", formData.price || 0);
       data.append("highlights", formData.highlights);
       if (imageFile) data.append("image", imageFile);
 
@@ -115,6 +116,7 @@ const AdminServices = () => {
     setFormData({
       name: srv.name,
       description: srv.description || "",
+      price: srv.price !== undefined && srv.price !== null ? srv.price : "",
       highlights: (srv.highlights || []).join(", "),
     });
     setImageFile(null);
@@ -184,6 +186,10 @@ const AdminServices = () => {
               <div>
                 <label className="form-label">Service Name *</label>
                 <input name="name" value={formData.name} onChange={handleChange} required placeholder="Luxury Catering" className="form-input" />
+              </div>
+              <div>
+                <label className="form-label">Price (₹) *</label>
+                <input name="price" type="number" min="0" value={formData.price} onChange={handleChange} required placeholder="e.g. 25000" className="form-input" />
               </div>
               <div>
                 <label className="form-label">Description</label>
@@ -272,6 +278,7 @@ const AdminServices = () => {
                 <tr>
                   <th>Preview</th>
                   <th>Service Name</th>
+                  <th>Price (₹)</th>
                   <th>Description</th>
                   <th>Highlights</th>
                   <th>Actions</th>
@@ -280,7 +287,7 @@ const AdminServices = () => {
               <tbody>
                 {filteredServices.length === 0 ? (
                   <tr>
-                    <td colSpan="5" style={{ textAlign: "center", padding: "3rem", color: "#64748B" }}>
+                    <td colSpan="6" style={{ textAlign: "center", padding: "3rem", color: "#64748B" }}>
                       <Sparkles size={28} style={{ marginBottom: "0.5rem", color: "#CBD5E1" }} />
                       <div>No services found. Add your first service above.</div>
                     </td>
@@ -302,6 +309,9 @@ const AdminServices = () => {
                         )}
                       </td>
                       <td style={{ fontWeight: 700, color: "#C5A059" }}>{srv.name}</td>
+                      <td style={{ fontWeight: 700, color: "#10B981" }}>
+                        ₹{srv.price !== undefined ? Number(srv.price).toLocaleString("en-IN") : "0"}
+                      </td>
                       <td style={{ color: "#64748B", maxWidth: "250px", fontSize: "0.85rem" }}>{srv.description || "—"}</td>
                       <td style={{ maxWidth: "220px" }}>
                         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>

@@ -202,24 +202,50 @@ const Packages = () => {
   useEffect(() => {
     fetchPackages();
 
-    // Fetch dynamic categories/services from database to merge into catalog
+    // Fetch dynamic categories and services from database to merge into catalog
     const fetchDynamicServices = async () => {
       try {
-        const res = await fetch(`${API_URL}/categories`);
-        const response = await res.json();
-        if (res.ok && response.data && response.data.length > 0) {
-          const dbServices = response.data.map((cat) => ({
-            id: cat._id,
-            name: cat.name,
-            price: cat.price || 20000,
-            category: "Bespoke Collection",
-            description: cat.description || "Curated floral decor service.",
-            image: cat.image ? (cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`) : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
-          }));
-          // Combine unique services
+        const [catRes, srvRes] = await Promise.all([
+          fetch(`${API_URL}/categories`).catch(() => null),
+          fetch(`${API_URL}/services`).catch(() => null),
+        ]);
+
+        let itemsToAdd = [];
+
+        if (srvRes && srvRes.ok) {
+          const srvJson = await srvRes.json();
+          if (srvJson.data && srvJson.data.length > 0) {
+            const mappedServices = srvJson.data.map((srv) => ({
+              id: srv._id,
+              name: srv.name,
+              price: Number(srv.price) || 15000,
+              category: "Curated Services",
+              description: srv.description || "Curated floral decor service.",
+              image: srv.image ? (srv.image.startsWith("http") ? srv.image : `${SERVER_URL}${srv.image}`) : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
+            }));
+            itemsToAdd.push(...mappedServices);
+          }
+        }
+
+        if (catRes && catRes.ok) {
+          const catJson = await catRes.json();
+          if (catJson.data && catJson.data.length > 0) {
+            const mappedCats = catJson.data.map((cat) => ({
+              id: cat._id,
+              name: cat.name,
+              price: cat.price || 20000,
+              category: "Bespoke Collection",
+              description: cat.description || "Curated floral decor service.",
+              image: cat.image ? (cat.image.startsWith("http") ? cat.image : `${SERVER_URL}${cat.image}`) : "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
+            }));
+            itemsToAdd.push(...mappedCats);
+          }
+        }
+
+        if (itemsToAdd.length > 0) {
           setAvailableServices((prev) => {
             const existingNames = new Set(prev.map((s) => s.name.toLowerCase()));
-            const newOnes = dbServices.filter((s) => !existingNames.has(s.name.toLowerCase()));
+            const newOnes = itemsToAdd.filter((s) => !existingNames.has(s.name.toLowerCase()));
             return [...prev, ...newOnes];
           });
         }

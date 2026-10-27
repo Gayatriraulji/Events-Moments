@@ -171,17 +171,34 @@ const Services = () => {
                 </div>
 
                 <div>
-                  <h3
-                    style={{
-                      fontFamily: "'Cormorant Garamond', Georgia, serif",
-                      fontSize: "1.6rem",
-                      fontWeight: 600,
-                      color: "#FAF7F2",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {srv.name}
-                  </h3>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "6px" }}>
+                    <h3
+                      style={{
+                        fontFamily: "'Cormorant Garamond', Georgia, serif",
+                        fontSize: "1.6rem",
+                        fontWeight: 600,
+                        color: "#FAF7F2",
+                        margin: 0,
+                      }}
+                    >
+                      {srv.name}
+                    </h3>
+                    {srv.price ? (
+                      <span
+                        style={{
+                          fontSize: "0.85rem",
+                          fontWeight: 700,
+                          color: "#10B981",
+                          background: "rgba(16, 185, 129, 0.12)",
+                          border: "1px solid rgba(16, 185, 129, 0.3)",
+                          padding: "3px 10px",
+                          borderRadius: "9999px",
+                        }}
+                      >
+                        ₹{Number(srv.price).toLocaleString("en-IN")}
+                      </span>
+                    ) : null}
+                  </div>
                   <p style={{ fontSize: "0.88rem", color: "#B4C2B6", lineHeight: 1.65, margin: 0 }}>
                     {srv.description}
                   </p>

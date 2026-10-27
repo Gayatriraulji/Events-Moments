@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Service } from "../models/service.model.js";
 
 const createService = asyncHandler(async (req, res) => {
-    const { name, description, highlights } = req.body;
+    const { name, description, highlights, price } = req.body;
 
     if (!name || name.trim() === "") {
         throw new ApiError(400, "Service name is required");
@@ -20,6 +20,7 @@ const createService = asyncHandler(async (req, res) => {
     const service = await Service.create({
         name,
         description,
+        price: Number(price) || 0,
         highlights: highlightsArray,
         image: imagePath,
     });
@@ -53,9 +54,13 @@ const getServiceById = asyncHandler(async (req, res) => {
 
 const updateService = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { name, description, highlights, isActive } = req.body;
+    const { name, description, highlights, isActive, price } = req.body;
 
     const updateData = { name, description };
+
+    if (price !== undefined) {
+        updateData.price = Number(price) || 0;
+    }
 
     if (isActive !== undefined) {
         updateData.isActive = isActive === "true" || isActive === true;

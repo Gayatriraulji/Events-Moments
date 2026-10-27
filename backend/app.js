@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Events Moments API is running");
+    res.send("Events Moments API is running");
 });
 
 export { app };

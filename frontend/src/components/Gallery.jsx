@@ -111,21 +111,29 @@ const Gallery = () => {
   };
 
   const getImgSrc = (img) => {
-    if (!img.image) return "";
-    return img.image.startsWith("http") ? img.image : `${SERVER_URL}${img.image}`;
+    if (!img) return "";
+    const path = img.image || img.img || "";
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    return `${SERVER_URL}${cleanPath}`;
   };
 
-  const categories = ["ALL", "Weddings", "Corporate Events", "Private Events", "Installations"];
+  // Derive categories dynamically from available images
+  const availableCategories = Array.from(
+    new Set(images.map((img) => img.category?.trim()).filter(Boolean))
+  );
+  const categories = availableCategories.length > 0 ? ["ALL", ...availableCategories] : ["ALL"];
 
   const filteredImages =
     selectedFilter === "ALL"
       ? images
-      : images.filter((img) => img.category?.toLowerCase() === selectedFilter.toLowerCase());
+      : images.filter((img) => (img.category || "").toLowerCase() === selectedFilter.toLowerCase());
 
   return (
-    <div style={{ background: "#141E15", minHeight: "100vh", padding: "4rem 1.5rem 6rem", color: "#F6F4EE" }}>
+    <div style={{ background: "#141E15", minHeight: "100vh", padding: "3.5rem 1.5rem 5rem", color: "#F6F4EE" }}>
       {/* Header */}
-      <div className="page-header" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+      <div className="page-header" style={{ textAlign: "center", marginBottom: "2.5rem" }}>
         <div
           style={{
             display: "inline-flex",
@@ -138,61 +146,66 @@ const Gallery = () => {
             marginBottom: "0.8rem",
           }}
         >
-          <span>Atelier Archives & Installations</span>
+          <span>Atelier Archives & Event Moments</span>
         </div>
         <h1
           style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(2.6rem, 5vw, 4rem)",
+            fontSize: "clamp(2.4rem, 4.5vw, 3.6rem)",
             fontWeight: 500,
             color: "#FAF7F2",
-            margin: "0 0 1rem",
+            margin: "0 0 0.8rem",
           }}
         >
-          Featured Work
+          Gallery & Visual Showcase
         </h1>
-        <div style={{ width: "50px", height: "1px", background: "#C5A059", margin: "0 auto 1.2rem" }} />
-        <p style={{ color: "#B4C2B6", maxWidth: "600px", margin: "0 auto", fontSize: "1rem", lineHeight: 1.7 }}>
-          Handcrafted Designs That Tell a Story — A visual portfolio of bespoke botanical scenography.
+        <div style={{ width: "50px", height: "1px", background: "#C5A059", margin: "0 auto 1rem" }} />
+        <p style={{ color: "#B4C2B6", maxWidth: "600px", margin: "0 auto", fontSize: "0.95rem", lineHeight: 1.6 }}>
+          Explore our real event captures, grand decor installations, and bespoke botanical scenography.
         </p>
       </div>
 
-      {/* Filter Tabs & Layout Switcher */}
+      {/* Control Bar: Categories (if available) & Layout Switcher */}
       <div
         style={{
           maxWidth: "1280px",
-          margin: "0 auto 2.5rem",
+          margin: "0 auto 2rem",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          gap: "1.2rem",
+          gap: "1rem",
         }}
       >
-        {/* Category Pills */}
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedFilter(cat)}
-              style={{
-                background: selectedFilter === cat ? "rgba(197, 160, 89, 0.25)" : "rgba(255, 255, 255, 0.04)",
-                border: `1px solid ${selectedFilter === cat ? "#C5A059" : "rgba(255, 255, 255, 0.1)"}`,
-                color: selectedFilter === cat ? "#DFBF80" : "#B4C2B6",
-                padding: "8px 18px",
-                borderRadius: "9999px",
-                fontSize: "0.78rem",
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* Category Pills or Photo Counter */}
+        {categories.length > 1 ? (
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedFilter(cat)}
+                style={{
+                  background: selectedFilter === cat ? "rgba(197, 160, 89, 0.25)" : "rgba(255, 255, 255, 0.04)",
+                  border: `1px solid ${selectedFilter === cat ? "#C5A059" : "rgba(255, 255, 255, 0.1)"}`,
+                  color: selectedFilter === cat ? "#DFBF80" : "#B4C2B6",
+                  padding: "7px 16px",
+                  borderRadius: "9999px",
+                  fontSize: "0.78rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#DFBF80", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.06em" }}>
+            <span>📷 {images.length} EVENT PHOTOGRAPHS</span>
+          </div>
+        )}
 
         {/* Layout Buttons */}
         <div style={{ display: "flex", gap: "8px" }}>
@@ -207,7 +220,7 @@ const Gallery = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
-                padding: "7px 16px",
+                padding: "6px 14px",
                 borderRadius: "9999px",
                 border: `1px solid ${layout === btn.id ? "rgba(197, 160, 89, 0.45)" : "rgba(255, 255, 255, 0.08)"}`,
                 background: layout === btn.id ? "rgba(197, 160, 89, 0.15)" : "rgba(255, 255, 255, 0.03)",
@@ -215,7 +228,6 @@ const Gallery = () => {
                 cursor: "pointer",
                 fontSize: "0.78rem",
                 fontWeight: 600,
-                transition: "all 0.25s ease",
               }}
             >
               {btn.icon}
@@ -229,7 +241,11 @@ const Gallery = () => {
       {loading ? (
         <div style={{ textAlign: "center", padding: "6rem 0" }}>
           <div className="spinner" style={{ borderTopColor: "#C5A059" }} />
-          <p style={{ color: "#8EA990", fontWeight: 500 }}>Loading visual archives...</p>
+          <p style={{ color: "#8EA990", fontWeight: 500, marginTop: "1rem" }}>Loading visual archives...</p>
+        </div>
+      ) : filteredImages.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "5rem 1rem", color: "#8EA990" }}>
+          <p>No photos available in this selection.</p>
         </div>
       ) : (
         <div
@@ -239,16 +255,16 @@ const Gallery = () => {
             columns: layout === "masonry" ? "3 320px" : "initial",
             columnGap: "1.5rem",
             display: layout === "grid" ? "grid" : "block",
-            gridTemplateColumns: layout === "grid" ? "repeat(auto-fill, minmax(340px, 1fr))" : "initial",
+            gridTemplateColumns: layout === "grid" ? "repeat(auto-fill, minmax(320px, 1fr))" : "initial",
             gap: layout === "grid" ? "1.5rem" : "initial",
           }}
         >
           {filteredImages.map((img, i) => {
             const isHovered = hoveredId === (img._id || i);
+            const displayTitle = img.title?.trim() || `Event Showcase #${i + 1}`;
             return (
               <div
-                key={`${selectedFilter}-${img._id || i}`}
-                className="animate-fade-scale"
+                key={img._id || i}
                 onClick={() => openLightbox(img, i)}
                 onMouseEnter={() => setHoveredId(img._id || i)}
                 onMouseLeave={() => setHoveredId(null)}
@@ -256,36 +272,32 @@ const Gallery = () => {
                   position: "relative",
                   breakInside: "avoid",
                   marginBottom: layout === "masonry" ? "1.5rem" : 0,
-                  borderRadius: "22px",
+                  borderRadius: "18px",
                   overflow: "hidden",
                   cursor: "pointer",
-                  border: isHovered ? "1px solid rgba(197, 160, 89, 0.5)" : "1px solid rgba(255,255,255,0.08)",
-                  transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-                  boxShadow: isHovered ? "0 20px 45px rgba(0,0,0,0.5), 0 0 30px rgba(197,160,89,0.15)" : "0 8px 25px rgba(0,0,0,0.3)",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                  border: isHovered ? "1px solid rgba(197, 160, 89, 0.6)" : "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: isHovered ? "0 12px 30px rgba(0,0,0,0.6)" : "0 4px 16px rgba(0,0,0,0.3)",
                   background: "#1C291D",
-                  animationDelay: `${(i % 10) * 0.06}s`,
                 }}
               >
                 <div style={{ position: "relative", overflow: "hidden" }}>
                   <img
                     src={getImgSrc(img)}
-                    alt={img.title || "Floral composition"}
+                    alt={displayTitle}
+                    loading="lazy"
                     style={{
                       width: "100%",
                       display: "block",
                       objectFit: "cover",
-                      transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
-                      transform: isHovered ? "scale(1.08)" : "scale(1)",
+                      minHeight: "220px",
                     }}
                   />
                   <div
                     style={{
                       position: "absolute",
                       inset: 0,
-                      background: "linear-gradient(to top, rgba(14, 22, 15, 0.9) 0%, rgba(14, 22, 15, 0.2) 60%, transparent 100%)",
-                      opacity: isHovered ? 1 : 0.6,
-                      transition: "opacity 0.35s ease",
+                      background: "linear-gradient(to top, rgba(14, 22, 15, 0.92) 0%, rgba(14, 22, 15, 0.25) 55%, transparent 100%)",
+                      opacity: isHovered ? 1 : 0.7,
                     }}
                   />
 
@@ -296,38 +308,36 @@ const Gallery = () => {
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      padding: "1.5rem",
+                      padding: "1.2rem 1.4rem",
                       zIndex: 3,
                     }}
                   >
-                    {img.category && (
-                      <span
-                        style={{
-                          fontSize: "0.68rem",
-                          letterSpacing: "0.12em",
-                          textTransform: "uppercase",
-                          color: "#DFBF80",
-                          fontWeight: 700,
-                          display: "block",
-                          marginBottom: "4px",
-                        }}
-                      >
-                        {img.category}
-                      </span>
-                    )}
+                    <span
+                      style={{
+                        fontSize: "0.68rem",
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "#DFBF80",
+                        fontWeight: 700,
+                        display: "block",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      {img.category || "Events & Moments Showcase"}
+                    </span>
                     <h3
                       style={{
                         fontFamily: "'Cormorant Garamond', Georgia, serif",
-                        fontSize: "1.4rem",
+                        fontSize: "1.3rem",
                         fontWeight: 600,
                         color: "#FAF7F2",
-                        margin: "0 0 4px",
+                        margin: "0 0 2px",
                       }}
                     >
-                      {img.title || "Bespoke Botanical Commission"}
+                      {displayTitle}
                     </h3>
                     {img.description && (
-                      <p style={{ fontSize: "0.82rem", color: "#B4C2B6", margin: 0, lineHeight: 1.5 }}>
+                      <p style={{ fontSize: "0.8rem", color: "#B4C2B6", margin: 0, lineHeight: 1.4 }}>
                         {img.description}
                       </p>
                     )}
@@ -435,10 +445,10 @@ const Gallery = () => {
             />
             <div style={{ padding: "1.5rem 2rem", background: "#1C291D" }}>
               <div style={{ fontSize: "0.74rem", textTransform: "uppercase", color: "#DFBF80", letterSpacing: "0.1em" }}>
-                {lightboxImage.category || "Aloriga Collection"}
+                {lightboxImage.category || "Events & Moments Collection"}
               </div>
               <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.8rem", color: "#FAF7F2", margin: "4px 0" }}>
-                {lightboxImage.title}
+                {lightboxImage.title?.trim() || `Event Showcase #${lightboxIndex + 1}`}
               </h3>
               {lightboxImage.description && (
                 <p style={{ color: "#B4C2B6", fontSize: "0.9rem", margin: 0 }}>

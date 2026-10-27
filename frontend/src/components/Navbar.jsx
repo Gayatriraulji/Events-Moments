@@ -72,6 +72,7 @@ const Navbar = () => {
     { label: "Services", desktopLabel: "SERVICES", path: "/services", icon: <Briefcase size={15} /> },
     { label: "Categories", desktopLabel: "CATEGORIES", path: "/categories", icon: <Layers size={15} /> },
     { label: "Packages", desktopLabel: "PACKAGES", path: "/packages", icon: <PackageIcon size={15} /> },
+    { label: "Gallery", desktopLabel: "GALLERY", path: "/gallery", icon: <GalleryIcon size={15} /> },
     { label: "Reviews", desktopLabel: "REVIEWS", path: "/reviews", icon: <Star size={15} /> },
     { label: "Contact", desktopLabel: "CONTACT", path: "/contact", icon: <PhoneCall size={15} /> },
   ];
